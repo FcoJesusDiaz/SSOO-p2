@@ -21,7 +21,9 @@ class Searcher{
         void operator()(){
 
         }
-};struct result{
+};
+
+struct result{
     std::string previous;
     std::string next;
 };

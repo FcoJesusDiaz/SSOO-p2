@@ -1,0 +1,1 @@
+Guardar los hilos en una cola en orden, cada hilo tendrá en guardado la línea de inicio y final y la palabra que busca más una estructura con los resultados de búsqueda
