@@ -29,5 +29,23 @@ struct result{
 };
 
 int main(int argc, char **argv){
+    std::ifstream file(FILE_NAME);
+    if(!file.is_open()){
+        std::cout << "Error opening file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    int n_lines;
+    int subdivision;
+    std::vector<std::vector<char>> portions;
+
+    while (file.getline())
+        n_lines++;
+
+    subdivision = n_lines/THREADS;
+
+    std::vector<int> thread_read_beginning;
+    for(int i = 0; i < THREADS; i++)
+        thread_read_beginning.push_back(i*subdivision);
     return 0;
 }
