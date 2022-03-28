@@ -37,9 +37,10 @@ int main(int argc, char **argv){
     
     int n_lines;
     int subdivision;
-    std::vector<std::vector<char>> portions;
+    std::string aux;
 
-    while (file.getline())
+
+    while (std::getline(file, aux))
         n_lines++;
 
     subdivision = n_lines/THREADS;
