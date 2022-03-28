@@ -8,14 +8,14 @@ class Searcher{
     private:
         int id;
         int begin;
-        int end;
+        int subdivision;
         std::queue<result> results;
     
     public:
-        Searcher(int id, int begin, int end){
+        Searcher(int id, int subdivision, std::fstream file){
             this->id = id;
-            this->begin = begin;
-            this->end = end;
+            this->subdivision = subdivision;
+            this->file = file;
         }
         
         void operator()(){
