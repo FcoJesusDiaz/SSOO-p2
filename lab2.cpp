@@ -9,8 +9,8 @@
 #include <algorithm>
 #include <functional>
 #include <fstream>
-
-#define N_HILOS 5
+#include <condition_variable>
+#include <bits/stdc++.h>
 
 int CountLines(std::string filename);
 
@@ -35,10 +35,64 @@ class Searcher{
         
         void operator()(){
 
-            std::cout<< "Hilo: " << id << ", inicio: " << begin+1 << "final: " << end+1 << std::endl;
-
+            std::cout<< "Hilo: " << id << ", l_inicio: " << begin+1 << " l_final: " << end+1 << std::endl;
+            Searching();
+            std::cout<< "Resultados del hilo: "<< id << std::endl;
+            
+            while (!results.empty())
+            {
+                Result resultado = results.back();
+                results.pop();
+                std::cout << "HILO:"<< id<<"Coincidencia encontrada en la linea: " << resultado.line +1<< std::endl;
+            }
+            
+            
         }
+
+        void Searching(){
+            std::string line;
+            int lines=begin;
+            std::string word="David";
+            std::ifstream mFile("Libros/prueba.txt");
+            if(mFile.is_open()) {
+                mFile.seekg(numLines[begin]);
+		        while(mFile.peek()!=EOF && lines<=end)
+		        {
+                    getline(mFile, line);
+                    /*
+                    if (line.find(word)!=-1)
+                    {
+                        struct Result instancia;
+                        instancia.line=lines;
+                        results.push(instancia);
+                        //std::cout << "hilo " << id << "encuentra en la linea" << lines << std::endl;
+                    }
+                    //std::cout << line << std::endl;
+                    */
+                    std::vector<std::string> tokens= tokenize(line);
+                    lines++;
+            
+		        }
+		        mFile.close();
+            }
+            else
+                std::cout<<"No se pudo abrir el archivo\n";
+        }
+
+        std::vector<std::string> Searcher::tokenize(std::string line);
 };
+
+std::vector<std::string> Searcher::tokenize(std::string line){
+    std::vector<std::string> tokens;
+    std::stringstream check1(line);
+    std::string intermediate;
+    while (getline(check1, intermediate, ' '))
+    {
+        tokens.push_back(intermediate);
+    }
+    
+    return tokens;
+}
 
 int main(int argc, char **argv){
 
