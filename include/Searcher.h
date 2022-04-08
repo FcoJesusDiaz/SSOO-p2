@@ -72,6 +72,11 @@ void Searcher::searching(){
         std::cerr << RED << "Thread " << id << "could not open the file " << filename << RESET <<std::endl;
 }
 
+/* method to check if the searched word is in the current line. for this we will create an array whose 
+positions will have the words that form that line. once the array is created; We will go through it and for 
+each word we will call the checkword method that will tell us if that word has the substring we are looking 
+for. In the true case, we will create a Result structure with the necessary data and include it in the 
+thread's private result vector. */
 void Searcher::findWord(std::string line, int numLine){
     std::vector<std::string> tokens;//array en el que guardaremos la linea
     std::stringstream check1(line);
