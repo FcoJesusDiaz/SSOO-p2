@@ -2,7 +2,6 @@ DIROBJ := obj/
 DIREXE := exec/
 DIRHEA := include/
 DIRSRC := src/
-DIRDEBUG := debug/
 
 CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
 LDLIBS := -lpthread -lrt

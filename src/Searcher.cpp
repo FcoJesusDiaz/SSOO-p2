@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include <string>
 #include <mutex>
+#include <condition_variable>
 #include "colors.h"
 
 #include "Searcher.h"
@@ -19,13 +20,13 @@ extern int flag;
 we will call the "findword" method to check if the searched word is in this line */
 void Searcher::searching(){
     std::string line;
-    int lines=begin;
+    int lines = begin;
     std::ifstream mFile(filename);
     if(!mFile.is_open()) {
         std::cerr << RED << "Thread " << id << "could not open the file " << filename << RESET <<std::endl;
     }
     mFile.seekg(numLines[begin]);
-    while(mFile.peek()!=EOF && lines<=end)
+    while(mFile.peek() != EOF && lines <= end)
     {
         getline(mFile, line);
         lines++;
@@ -63,13 +64,10 @@ void Searcher::findWord(std::string line, int numLine){
             coincidencia.word = originalWord;
             coincidencia.l_begin = begin;
             coincidencia.l_end = end;
-            coincidencia.previous = (i!=0) ? tokens[i-1] : "";
-            coincidencia.next = (i!=0) ? tokens[i+1] : "";
+            coincidencia.previous = (i != 0) ? tokens[i-1] : "";
+            coincidencia.next = (i != tokens.size()-1) ? tokens[i+1] : "";
             results.push_back(coincidencia);
         }
-        
-        
-        
     }
 }
 //method used to store in the vector TotalSearches the results obtained by this thread
