@@ -29,7 +29,7 @@
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
-void printResults();
+void printResults(std::string word);
 
 
 /*GLOBAL VARIABLES*/
@@ -60,8 +60,6 @@ int main(int argc, char **argv){
     //lines of each thread
     int task_size = num_lines/num_threads;
 
-    std::cout << BOLDGREEN <<"Results for: " << argv[2] << RESET << std::endl;
-
     for (int i = 0; i < num_threads; i++)
     {
         /* variables indicating the start and end line of each thread.  if it is the last thread; it is 
@@ -78,7 +76,7 @@ int main(int argc, char **argv){
     //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
 
-    printResults();
+    printResults(argv[2]);
     
     return EXIT_SUCCESS;
 }
@@ -129,7 +127,9 @@ bool is_integer(char *str){
     return true;
 }
 
-void printResults(){
+void printResults(std::string word){
+
+    std::cout << BOLDGREEN << allResults.size()<<RESET <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
     Result result;
     while(!allResults.empty()){
         result = allResults.front();
