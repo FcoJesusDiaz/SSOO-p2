@@ -2,12 +2,17 @@
 #include <queue>
 #include <fstream>
 #include <bits/stdc++.h>
+#include "colors.h"
+
+#ifndef SEARCHER_H
+#define SEARCHER_H
 
 extern std::vector<int> numLines;
 
 struct Result{
     std::string previous;
     std::string next;
+    std::string word;
     int line;
 };
 
@@ -24,11 +29,12 @@ class Searcher{
         begin(begin), end(end),filename(filename),word(word){};
 
         void operator()(){
-
+            searching();
+            printResults();
         }
-    void searching();
-    void Searcher::findWord(std::string line, int num_line);
-    void Searcher::printResults();
+        void searching();
+        void findWord(std::string line, int numLine);
+        void printResults();
 };
 
 void Searcher::searching(){
@@ -46,11 +52,10 @@ void Searcher::searching(){
 		mFile.close();
     }
     else
-        std::cout<<"No se pudo abrir el archivo\n";
+        std::cerr << RED << "Thread " << id << "could not open the file " << filename << RESET <<std::endl;
 }
 
 void Searcher::findWord(std::string line, int numLine){
-
     std::vector<std::string> tokens;//array en el que guardaremos la linea
     std::stringstream check1(line);
     std::string intermediate;
@@ -64,11 +69,12 @@ void Searcher::findWord(std::string line, int numLine){
         std::transform(tokens[i].begin(), tokens[i].end(), tokens[i].begin(), ::tolower);
         if (word==tokens[i] && i!=0 && i!=tokens.size()-1) //la palabra coincide y no es la primera ni la ultima de la linea
         {
-            //std::cout<< tokens[i-1] << " - " << tokens[i] << " - " << tokens[i+1] << std::endl;
+            std::cout<< tokens[i-1] << " - " << tokens[i] << " - " << tokens[i+1] << std::endl;
             Result coincidencia;
             coincidencia.line=numLine;
             coincidencia.next=tokens[i+1];
             coincidencia.previous=tokens[i-1];
+            coincidencia.word=tokens[i];
             results.push(coincidencia);
         }
         
@@ -76,13 +82,16 @@ void Searcher::findWord(std::string line, int numLine){
 }
 
 void Searcher::printResults(){
+    
     while (!results.empty())
     {
         Result resultado = results.back();
         results.pop();
         std::cout<< "[Hilo "<< id << " inicio: " << begin << " - final: "<< end << "] línea " << resultado.line<<
-        " :: ... "<< resultado.previous << " "<<word << " "<< resultado.next << std::endl; 
+        " :: ... "<< resultado.previous << " "<<resultado.word << " "<< resultado.next << std::endl; 
     }
     
     
 }
+
+#endif
