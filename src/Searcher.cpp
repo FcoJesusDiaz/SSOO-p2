@@ -21,19 +21,18 @@ void Searcher::searching(){
     std::string line;
     int lines=begin;
     std::ifstream mFile(filename);
-    if(mFile.is_open()) {
-        mFile.seekg(numLines[begin]);
-		while(mFile.peek()!=EOF && lines<=end)
-		{
-            getline(mFile, line);
-            lines++;
-            findWord(line,lines);
-		}
-		mFile.close();
-    }
-    else
+    if(!mFile.is_open()) {
         std::cerr << RED << "Thread " << id << "could not open the file " << filename << RESET <<std::endl;
-}
+    }
+    mFile.seekg(numLines[begin]);
+    while(mFile.peek()!=EOF && lines<=end)
+    {
+        getline(mFile, line);
+        lines++;
+        findWord(line,lines);
+    }
+    mFile.close();
+}   
 
 /* method to check if the searched word is in the current line. for this we will create an array whose 
 positions will have the words that form that line. once the array is created; We will go through it and for 
