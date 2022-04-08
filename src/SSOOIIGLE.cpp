@@ -25,24 +25,16 @@
 #include "Searcher.h"
 #include "colors.h"
 
+/*DECLARATIONS OF FUNCTIONS*/
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
-void assignTurns(int num_threads);
-void printResults(std::string word);
-
-//array to hold the start byte of each line
-std::vector<int> numLines;
-//array used to store all final results
-std::vector<Result> Totalsearches;
-//semaphore used to restrict access to the flag variable
-std::mutex m;
-//vector used to restrict access to the vector
-std::mutex vectorLock;
-//variable to assign each thread a turn
-int flag;
 
 
+/*GLOBAL VARIABLES*/
+std::vector<int> numLines; //array to hold the start byte of each line
+
+/*MAIN*/
 int main(int argc, char **argv){
 
     checkArguments(argc,argv);
@@ -66,6 +58,8 @@ int main(int argc, char **argv){
     //lines of each thread
     int task_size = num_lines/num_threads;
 
+    std::cout << BOLDGREEN <<"Results for: " << argv[2] << RESET << std::endl;
+
     for (int i = 0; i < num_threads; i++)
     {
         /* variables indicating the start and end line of each thread.  if it is the last thread; it is 
@@ -77,19 +71,14 @@ int main(int argc, char **argv){
 
         Searcher s{i+1,l_begin,l_end,argv[1],argv[2]};
         v_hilos.push_back(std::thread(s));
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
-    //round robin so that each thread stores the search results in the global array (Totalsearches)
-    assignTurns(num_threads);
-
-    //wait until all threads finish
+    //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
-
-    printResults(argv[2]);
     
     return 0;
 }
+
 /* method to count the number of lines of the requested file and to obtain the byte in which each line 
 starts so that we can tell each thread in which byte to start reading. we store that byte in the vector 
 "numLines" */
@@ -136,30 +125,3 @@ bool is_integer(char *str){
     return true;
 }
 
-/* method used to give each thread a turn to insert its search results into the global result vector */
-void assignTurns(int num_threads){
-
-    for (unsigned i = 0; i < num_threads; i++)
-    {
-        std::unique_lock<std::mutex> lk(m);
-        while (!flag){
-            flag=true;
-            lk.unlock();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            lk.lock();
-        }
-        
-    }
-}
-
-//method used to display the final results
-void printResults(std::string word){
-    std::cout << BOLDGREEN <<Totalsearches.size()<< RESET <<" Results for: " << BOLDBLUE <<word << RESET << std::endl;
-    for (int  i = 0; i < Totalsearches.size(); i++)
-    {
-        Result result = Totalsearches[i];
-        std::cout<< "[Hilo "<< BOLDYELLOW <<result.id << RESET<<" inicio: " << BOLDGREEN <<result.l_begin+1 
-        << RESET <<" - final: "<< BOLDGREEN << result.l_end+1 << RESET <<"] línea " << BOLDRED
-        << result.line<< RESET <<" :: ... "<< result.previous << " "<< BOLDBLUE<<result.word <<  RESET <<" "<< result.next << std::endl;
-    }
-}

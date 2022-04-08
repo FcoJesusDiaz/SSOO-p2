@@ -9,12 +9,15 @@
 
 #include "Searcher.h"
 
-
+/*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
-extern std::mutex m;
-extern std::mutex vectorLock;
-extern int flag;
 
+/*Global variables*/
+std::condition_variable condition;
+std::mutex turn_sem;
+int thread_turn = 1;
+
+/*DEFINITION OF METHODS INSIDE SEARCHER*/
 
 /* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
 we will call the "findword" method to check if the searched word is in this line */
@@ -70,25 +73,18 @@ void Searcher::findWord(std::string line, int numLine){
         }
     }
 }
-//method used to store in the vector TotalSearches the results obtained by this thread
-void Searcher::saveResults(){
-    
-    std::unique_lock<std::mutex> lk(m);
-    while (!flag)
+
+void Searcher::printResults(){
+    std::unique_lock<std::mutex> turn(turn_sem);
+    condition.wait(turn, [&]{return thread_turn == this->id;});
+    Result result;
+    for (long unsigned int  i = 0; i < this->results.size(); i++)
     {
-        lk.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        lk.lock();
+        result = this->results[i];
+        std::cout<< "[Hilo "<< BOLDYELLOW <<result.id << RESET<<" inicio: " << BOLDGREEN <<result.l_begin+1 
+        << RESET <<" - final: "<< BOLDGREEN << result.l_end+1 << RESET <<"] línea " << BOLDRED
+        << result.line<< RESET <<" :: ... "<< result.previous << " "<< BOLDBLUE<<result.word <<  RESET <<" "<< result.next << std::endl;
     }
-    std::unique_lock<std::mutex> vk(vectorLock);
-    for (unsigned i = 0; i < results.size(); i++)
-    {
-        Totalsearches.push_back(results[i]);
-    }
-    vk.unlock();
-    flag=false;
-   
-    
 }
 
 //method to check if the substring we want is contained in a higher string
@@ -106,5 +102,7 @@ bool Searcher::checkWord(std::string checked){
 
 void Searcher :: operator()(){
     this->searching();
-    this->saveResults();
+    printResults();
+    thread_turn++;
+    condition.notify_all();
 }

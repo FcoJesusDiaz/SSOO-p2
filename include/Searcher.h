@@ -23,9 +23,6 @@ struct Result{
     int line;
 };
 
-//vector in which we will store the results of all threads
-extern std::vector<Result> Totalsearches;
-
 /* search engine class that we will assign to each thread to perform the search. includes all methods for 
 searching and storing results */
 class Searcher{
@@ -42,8 +39,8 @@ class Searcher{
 
         void searching();
         void findWord(std::string line, int numLine);
-        void saveResults();
         bool checkWord(std::string checked);
+        void printResults();
         void operator()();
 };
 #endif
