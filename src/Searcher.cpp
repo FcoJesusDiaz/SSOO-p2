@@ -11,6 +11,7 @@
 
 /*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
+extern std::queue<Result> allResults;
 
 /*Global variables*/
 std::condition_variable condition;
@@ -74,16 +75,14 @@ void Searcher::findWord(std::string line, int numLine){
     }
 }
 
-void Searcher::printResults(){
+void Searcher::storeResults(){
     std::unique_lock<std::mutex> turn(turn_sem);
     condition.wait(turn, [&]{return thread_turn == this->id;});
     Result result;
     for (long unsigned int  i = 0; i < this->results.size(); i++)
     {
         result = this->results[i];
-        std::cout<< "[Hilo "<< BOLDYELLOW <<result.id << RESET<<" inicio: " << BOLDGREEN <<result.l_begin+1 
-        << RESET <<" - final: "<< BOLDGREEN << result.l_end+1 << RESET <<"] línea " << BOLDRED
-        << result.line<< RESET <<" :: ... "<< result.previous << " "<< BOLDBLUE<<result.word <<  RESET <<" "<< result.next << std::endl;
+        allResults.push(result);
     }
 }
 
@@ -102,7 +101,7 @@ bool Searcher::checkWord(std::string checked){
 
 void Searcher :: operator()(){
     this->searching();
-    printResults();
+    storeResults();
     thread_turn++;
     condition.notify_all();
 }

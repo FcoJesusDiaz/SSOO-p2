@@ -40,7 +40,7 @@ class Searcher{
         void searching();
         void findWord(std::string line, int numLine);
         bool checkWord(std::string checked);
-        void printResults();
+        void storeResults();
         void operator()();
 };
 #endif

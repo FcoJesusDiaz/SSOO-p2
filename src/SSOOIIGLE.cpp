@@ -29,10 +29,12 @@
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
+void printResults();
 
 
 /*GLOBAL VARIABLES*/
 std::vector<int> numLines; //array to hold the start byte of each line
+std::queue<Result> allResults; //queue to store all results
 
 /*MAIN*/
 int main(int argc, char **argv){
@@ -75,8 +77,10 @@ int main(int argc, char **argv){
 
     //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
+
+    printResults();
     
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 /* method to count the number of lines of the requested file and to obtain the byte in which each line 
@@ -123,5 +127,18 @@ bool is_integer(char *str){
         if (!isdigit(*str++))
             return false;
     return true;
+}
+
+void printResults(){
+    Result result;
+    while(!allResults.empty()){
+        result = allResults.front();
+        allResults.pop();
+
+        std::cout<< "[Hilo "<< BOLDYELLOW <<result.id << RESET<<" inicio: " << BOLDGREEN <<result.l_begin+1 
+        << RESET <<" - final: "<< BOLDGREEN << result.l_end+1 << RESET <<"] línea " << BOLDRED
+        << result.line<< RESET <<" :: ... "<< result.previous << " "<< BOLDBLUE<<result.word <<  RESET <<" "<< result.next << std::endl;
+    }
+    
 }
 
