@@ -21,8 +21,8 @@
 #include <vector>
 #include <chrono>
 
-#include "../include/Searcher.h"
-#include "../include/colors.h"
+#include "Searcher.h"
+#include "colors.h"
 
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);

@@ -1,15 +1,29 @@
+DIROBJ := obj/
+DIREXE := exec/
+DIRHEA := include/
 DIRSRC := src/
-DIRINC := include/
+DIRDEBUG := debug/
 
+CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
+LDLIBS := -lpthread -lrt
 CC := g++
 
-all : main
+all : dirs SSOOIIGLE
 
-main: 
-	$(CC) -o SSOOIIGLE $(DIRSRC)SSOOIIGLE.cpp -pthread -std=c++11
+dirs:
+	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
 
-test1:
-	./SSOOIIGLE Libros/prueba.txt David 3
+debugging:
+	$(CC) -I$(DIRHEA) -g $(DIRSRC)SSOOIIGLE.cpp -o $(DIRDEBUG)SSOOIIGLE $(LDLIBS)
+
+SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o 
+	$(CC) -o $(DIREXE)$@ $^ $(LDLIBS)
+
+$(DIROBJ)SSOOIIGLE.o: $(DIRSRC)SSOOIIGLE.cpp
+	$(CC) $(CFLAGS) $^ -o $@
+
+test:
+	./$(DIREXE)SSOOIIGLE Libros/prueba.txt David 3
 
 clean : 
-	rm SSOOIIGLE
+	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~
