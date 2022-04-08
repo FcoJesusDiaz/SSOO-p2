@@ -19,8 +19,14 @@ SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
-test:
+test1:
 	./$(DIREXE)SSOOIIGLE Libros/prueba.txt David 3
+
+test2:
+	./$(DIREXE)SSOOIIGLE Libros/VIVE-TU-SUEÑO.txt sueña 10
+
+test3:
+	./$(DIREXE)SSOOIIGLE Libros/ACTITUD-DE-VENDEDOR.txt vender 8
 
 clean : 
 	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~

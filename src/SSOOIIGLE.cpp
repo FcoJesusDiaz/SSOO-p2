@@ -5,12 +5,10 @@
     to david, DAVID or DaVid will appear. similarly, the implementation will also take into account the 
     substrings included in a larger string so that if you search for example "al"; all words containing the 
     substring "al" will be taken into account.
-
     Code made by:
         - MIGUEL DE LAS HERAS FUENTES
         - FRANCISCO JESÚS DÍAZ PELLEJERO
         - JAVIER VILLAR ASENSIO
-
 */
 
 #include <iostream>
@@ -156,7 +154,7 @@ void assignTurns(int num_threads){
 
 //method used to display the final results
 void printResults(std::string word){
-    std::cout << "Results for: " << word << std::endl;
+    std::cout << BOLDGREEN <<Totalsearches.size()<< RESET <<" Results for: " << BOLDBLUE <<word << RESET << std::endl;
     for (int  i = 0; i < Totalsearches.size(); i++)
     {
         Result result = Totalsearches[i];
