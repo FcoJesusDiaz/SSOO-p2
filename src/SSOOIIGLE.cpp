@@ -20,6 +20,9 @@
 #include <fstream>
 #include <vector>
 #include <chrono>
+#include <mutex>
+#include <bits/stdc++.h>
+
 
 #include "Searcher.h"
 #include "colors.h"
@@ -40,6 +43,7 @@ std::mutex m;
 std::mutex vectorLock;
 //variable to assign each thread a turn
 int flag;
+
 
 int main(int argc, char **argv){
 

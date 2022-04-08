@@ -13,13 +13,10 @@ all : dirs SSOOIIGLE
 dirs:
 	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
 
-debugging:
-	$(CC) -I$(DIRHEA) -g $(DIRSRC)SSOOIIGLE.cpp -o $(DIRDEBUG)SSOOIIGLE $(LDLIBS)
+SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
+	$(CC) -o $(DIREXE)$@ $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o $(LDLIBS)
 
-SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o 
-	$(CC) -o $(DIREXE)$@ $^ $(LDLIBS)
-
-$(DIROBJ)SSOOIIGLE.o: $(DIRSRC)SSOOIIGLE.cpp
+$(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
 test:
