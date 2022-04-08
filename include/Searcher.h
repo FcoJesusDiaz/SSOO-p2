@@ -14,6 +14,7 @@ extern std::mutex m;
 extern std::mutex vectorLock;
 extern int flag;
 
+//structure that we will use for the results
 struct Result{
     std::string previous;
     std::string next;
@@ -24,8 +25,11 @@ struct Result{
     int line;
 };
 
+//vector in which we will store the results of all threads
 extern std::vector<Result> Totalsearches;
 
+/* search engine class that we will assign to each thread to perform the search. includes all methods for 
+searching and storing results */
 class Searcher{
     private:
         int id;
@@ -48,6 +52,8 @@ class Searcher{
         bool checkWord(std::string checked);
 };
 
+/* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
+we will call the "findword" method to check if the searched word is in this line */
 void Searcher::searching(){
     std::string line;
     int lines=begin;
@@ -78,7 +84,8 @@ void Searcher::findWord(std::string line, int numLine){
     for (unsigned i = 0; i < tokens.size(); i++)
     {
         std::transform(tokens[i].begin(), tokens[i].end(), tokens[i].begin(), ::tolower);
-        if (word==tokens[i] && i!=0 && i!=tokens.size()-1) //la palabra coincide y no es la primera ni la ultima de la linea
+        bool found = checkWord(tokens[i]);
+        if (found && i!=0 && i!=tokens.size()-1) //la palabra coincide y no es la primera ni la ultima de la linea
         {
             //std::cout<< tokens[i-1] << " - " << tokens[i] << " - " << tokens[i+1] << std::endl;
             Result coincidencia;
@@ -91,7 +98,7 @@ void Searcher::findWord(std::string line, int numLine){
             coincidencia.l_end=end;
             results.push_back(coincidencia);
         }
-        if (word==tokens[i] && i==0)
+        if (found && i==0)
         {
             Result coincidencia;
             coincidencia.id=id;
@@ -103,7 +110,7 @@ void Searcher::findWord(std::string line, int numLine){
             coincidencia.l_end=end;
             results.push_back(coincidencia);
         }
-        if (word==tokens[i] && i==tokens.size()-1)
+        if (found && i==tokens.size()-1)
         {
             Result coincidencia;
             coincidencia.id=id;
@@ -118,17 +125,9 @@ void Searcher::findWord(std::string line, int numLine){
         
     }
 }
-
+//method used to store in the vector TotalSearches the results obtained by this thread
 void Searcher::saveResults(){
-    /*
-    for (int  i = 0; i < results.size(); i++)
-    {
-        Result resultado = results[i];
-        std::cout<< "[Hilo "<< id << " inicio: " << begin+1 << " - final: "<< end+1 << "] línea " << resultado.line<<
-        " :: ... "<< resultado.previous << " "<<resultado.word << " "<< resultado.next << std::endl;
-    }
-    */
-
+    
     std::unique_lock<std::mutex> lk(m);
     while (!flag)
     {
@@ -147,12 +146,15 @@ void Searcher::saveResults(){
     
 }
 
+//method to check if the substring we want is contained in a higher string
 bool Searcher::checkWord(std::string checked){
 
+    /* we convert from string to const char to be able to use the strstr function and check if a substring 
+    is contained in a larger string*/
     const char *w = word.c_str();
     const char *ck = checked.c_str();
 
-    if (strstr(w,ck)) return true;
+    if (strstr(ck,w)) return true;
 
     return false;
 }
