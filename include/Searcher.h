@@ -1,3 +1,13 @@
+/* 
+    code belonging to practice 2 of SSOOII. In this code, a "RESULT" structure is implemented that we will use
+    to format the results obtained in the search. And the Searcher class whose methods we will use to perform 
+    the search and store all the data of each word found. Each instance of this class will be assigned a thread 
+    to be able to perform the search in parallel between several threads.
+    Code made by:
+            - MIGUEL DE LAS HERAS FUENTES
+            - FRANCISCO JESÚS DÍAZ PELLEJERO
+            - JAVIER VILLAR ASENSIO
+*/
 #include <iostream>
 #include <queue>
 #include <fstream>
@@ -78,7 +88,8 @@ each word we will call the checkword method that will tell us if that word has t
 for. In the true case, we will create a Result structure with the necessary data and include it in the 
 thread's private result vector. */
 void Searcher::findWord(std::string line, int numLine){
-    std::vector<std::string> tokens;//array en el que guardaremos la linea
+    std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+    std::vector<std::string> tokens;
     std::stringstream check1(line);
     std::string intermediate;
     while (getline(check1, intermediate, ' '))
@@ -88,45 +99,24 @@ void Searcher::findWord(std::string line, int numLine){
 
     for (unsigned i = 0; i < tokens.size(); i++)
     {
+        std::string originalWord = tokens[i];
         std::transform(tokens[i].begin(), tokens[i].end(), tokens[i].begin(), ::tolower);
         bool found = checkWord(tokens[i]);
-        if (found && i!=0 && i!=tokens.size()-1) //la palabra coincide y no es la primera ni la ultima de la linea
-        {
-            //std::cout<< tokens[i-1] << " - " << tokens[i] << " - " << tokens[i+1] << std::endl;
-            Result coincidencia;
-            coincidencia.id=id;
-            coincidencia.line=numLine;
-            coincidencia.next=tokens[i+1];
-            coincidencia.previous=tokens[i-1];
-            coincidencia.word=tokens[i];
-            coincidencia.l_begin=begin;
-            coincidencia.l_end=end;
-            results.push_back(coincidencia);
-        }
-        if (found && i==0)
+
+        if (found)
         {
             Result coincidencia;
             coincidencia.id=id;
             coincidencia.line=numLine;
-            coincidencia.next=tokens[i+1];
-            coincidencia.previous="";
-            coincidencia.word=tokens[i];
+            coincidencia.word=originalWord;
             coincidencia.l_begin=begin;
             coincidencia.l_end=end;
+            coincidencia.previous = (i!=0)?tokens[i-1]:"";
+            coincidencia.next = (i!=0)?tokens[i+1]:"";
             results.push_back(coincidencia);
         }
-        if (found && i==tokens.size()-1)
-        {
-            Result coincidencia;
-            coincidencia.id=id;
-            coincidencia.line=numLine;
-            coincidencia.next="";
-            coincidencia.previous=tokens[i-1];
-            coincidencia.word=tokens[i];
-            coincidencia.l_begin=begin;
-            coincidencia.l_end=end;
-            results.push_back(coincidencia);
-        }
+        
+        
         
     }
 }

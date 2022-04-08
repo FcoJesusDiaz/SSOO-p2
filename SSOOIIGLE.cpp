@@ -1,3 +1,18 @@
+/*
+    Code belonging to practice 2 of SSOOII. The code made is intended to simulate the search for a substring 
+    in a file passed by arguments by using threads. The implementation carried out does not distinguish 
+    between uppercase or lowercase, so that if the word searched for is DaVid, all the results corresponding 
+    to david, DAVID or DaVid will appear. similarly, the implementation will also take into account the 
+    substrings included in a larger string so that if you search for example "al"; all words containing the 
+    substring "al" will be taken into account.
+
+    Code made by:
+        - MIGUEL DE LAS HERAS FUENTES
+        - FRANCISCO JESÚS DÍAZ PELLEJERO
+        - JAVIER VILLAR ASENSIO
+
+*/
+
 #include <iostream>
 #include <thread>
 #include <queue>
@@ -13,7 +28,7 @@ int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
 void assignTurns(int num_threads);
-void printResults(void);
+void printResults(std::string word);
 
 //array to hold the start byte of each line
 std::vector<int> numLines;
@@ -69,7 +84,7 @@ int main(int argc, char **argv){
     //wait until all threads finish
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
 
-    printResults();
+    printResults(argv[2]);
     
     return 0;
 }
@@ -136,7 +151,8 @@ void assignTurns(int num_threads){
 }
 
 //method used to display the final results
-void printResults(){
+void printResults(std::string word){
+    std::cout << "Results for: " << word << std::endl;
     for (int  i = 0; i < Totalsearches.size(); i++)
     {
         Result result = Totalsearches[i];
