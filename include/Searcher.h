@@ -42,5 +42,6 @@ class Searcher{
         bool checkWord(std::string checked);
         void storeResults();
         void operator()();
+        void print();
 };
 #endif

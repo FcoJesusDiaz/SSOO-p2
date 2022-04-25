@@ -105,3 +105,15 @@ void Searcher :: operator()(){
     thread_turn++;
     condition.notify_all();
 }
+
+void Searcher::print(){
+    
+    for (unsigned i = 0; i < results.size(); i++)
+    {
+        std::cout<< "[Hilo "<< BOLDYELLOW <<results[i].id << RESET<<" inicio: " << BOLDGREEN <<results[i].l_begin+1 
+        << RESET <<" - final: "<< BOLDGREEN << results[i].l_end+1 << RESET <<"] línea " << BOLDRED
+        << results[i].line<< RESET <<" :: ... "<< results[i].previous << " "<< BOLDBLUE<<results[i].word <<  RESET <<" "<< results[i].next << std::endl;
+    }
+    
+
+}

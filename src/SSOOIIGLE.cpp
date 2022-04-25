@@ -70,13 +70,22 @@ int main(int argc, char **argv){
         else l_end=num_lines-1;
 
         Searcher s{i+1,l_begin,l_end,argv[1],argv[2]};
-        v_hilos.push_back(std::thread(s));
+        v_objetos.push_back(std::ref(s));
+        v_hilos.push_back(std::thread(std::ref(s)));
     }
 
     //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
 
-    printResults(argv[2]);
+    for (int i = 0; i < v_objetos.size(); i++)
+    {
+        v_objetos[i].print();
+    }
+
+    
+    
+    
+    //printResults(argv[2]);
     
     return EXIT_SUCCESS;
 }
