@@ -29,12 +29,12 @@
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
-void printResults(std::string word);
+void printResults(std::string word, std::vector<Searcher>);
 
 
 /*GLOBAL VARIABLES*/
 std::vector<int> numLines; //array to hold the start byte of each line
-std::queue<Result> allResults; //queue to store all results
+std::string colours[] = {BOLDBLUE, BOLDGREEN, BOLDYELLOW, BOLDMAGENTA};
 
 /*MAIN*/
 int main(int argc, char **argv){
@@ -69,23 +69,18 @@ int main(int argc, char **argv){
         if(i!=num_threads-1) l_end= (l_begin+task_size)-1;
         else l_end=num_lines-1;
 
-        Searcher s{i+1,l_begin,l_end,argv[1],argv[2]};
-        v_objetos.push_back(std::ref(s));
-        v_hilos.push_back(std::thread(std::ref(s)));
+        Searcher s{i+1,l_begin,l_end,argv[1],argv[2], colours[i % 4]};
+        v_objetos.push_back(s);
+    }
+
+    for (int i = 0; i < num_threads; i++){
+        v_hilos.push_back(std::thread(std::ref(v_objetos[i])));
     }
 
     //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
-
-    for (int i = 0; i < v_objetos.size(); i++)
-    {
-        v_objetos[i].print();
-    }
-
     
-    
-    
-    //printResults(argv[2]);
+    printResults(argv[2], v_objetos);
     
     return EXIT_SUCCESS;
 }
@@ -136,18 +131,11 @@ bool is_integer(char *str){
     return true;
 }
 
-void printResults(std::string word){
+void printResults(std::string word, std::vector<Searcher> v_objetos){
+    std::cout <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
 
-    std::cout << BOLDGREEN << allResults.size()<<RESET <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
-    Result result;
-    while(!allResults.empty()){
-        result = allResults.front();
-        allResults.pop();
-
-        std::cout<< "[Hilo "<< BOLDYELLOW <<result.id << RESET<<" inicio: " << BOLDGREEN <<result.l_begin+1 
-        << RESET <<" - final: "<< BOLDGREEN << result.l_end+1 << RESET <<"] línea " << BOLDRED
-        << result.line<< RESET <<" :: ... "<< result.previous << " "<< BOLDBLUE<<result.word <<  RESET <<" "<< result.next << std::endl;
+    for(long unsigned int i = 0; i < v_objetos.size(); i++){
+        std::cout << v_objetos[i].to_string();
     }
-    
 }
 
