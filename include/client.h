@@ -7,9 +7,11 @@ class Client{
     private:
         int id;
         client_type type;
+        int balance;
     public:
         Client(int id, client_type type): id(id), type(type){};
-        void operator()();
+        void make_search();
+        void setBalance(int new_balance);
 };
 
 #endif
