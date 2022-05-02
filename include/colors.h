@@ -8,5 +8,6 @@
 #define BOLDYELLOW  "\033[1m\033[33m"      
 #define BOLDBLUE    "\033[1m\033[36m"  
 #define BOLDGREEN   "\033[1m\033[32m" 
+#define BOLDMAGENTA "\033[1m\033[35m"
 
 #endif

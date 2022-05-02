@@ -11,12 +11,6 @@
 
 /*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
-extern std::queue<Result> allResults;
-
-/*Global variables*/
-std::condition_variable condition;
-std::mutex turn_sem;
-int thread_turn = 1;
 
 /*DEFINITION OF METHODS INSIDE SEARCHER*/
 
@@ -27,7 +21,8 @@ void Searcher::searching(){
     int lines = begin;
     std::ifstream mFile(filename);
     if(!mFile.is_open()) {
-        std::cerr << RED << "Thread " << id << "could not open the file " << filename << RESET <<std::endl;
+        std::cerr << this->colour << "Thread " << id << " could not open the file " << filename << RESET <<std::endl;
+        return;
     }
     mFile.seekg(numLines[begin]);
     while(mFile.peek() != EOF && lines <= end)
@@ -75,17 +70,6 @@ void Searcher::findWord(std::string line, int numLine){
     }
 }
 
-void Searcher::storeResults(){
-    std::unique_lock<std::mutex> turn(turn_sem);
-    condition.wait(turn, [&]{return thread_turn == this->id;});
-    Result result;
-    for (long unsigned int  i = 0; i < this->results.size(); i++)
-    {
-        result = this->results[i];
-        allResults.push(result);
-    }
-}
-
 //method to check if the substring we want is contained in a higher string
 bool Searcher::checkWord(std::string checked){
 
@@ -100,8 +84,17 @@ bool Searcher::checkWord(std::string checked){
 }
 
 void Searcher :: operator()(){
-    this->searching();
-    storeResults();
-    thread_turn++;
-    condition.notify_all();
+    searching();
+}
+
+std::string Searcher::to_string(){
+    std::string result;
+    for (unsigned i = 0; i < results.size(); i++)
+    {
+        result += this->colour + "[Hilo " + std::to_string(results[i].id) + " inicio: " +
+        std::to_string(results[i].l_begin+1) + " - final: " + std::to_string(results[i].l_end+1)
+        + "] línea " + std::to_string(results[i].line) + " :: ... " + results[i].previous 
+        + " " + results[i].word + " " + results[i].next + RESET + "\n";
+    }
+    return result;
 }

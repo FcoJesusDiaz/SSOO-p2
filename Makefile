@@ -7,7 +7,7 @@ CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
 LDLIBS := -lpthread -lrt
 CC := g++
 
-all : dirs SSOOIIGLE
+all : dirs SSOOIIGLE manager
 
 dirs:
 	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
@@ -15,8 +15,14 @@ dirs:
 SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
 	$(CC) -o $(DIREXE)$@ $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o $(LDLIBS)
 
+manager: $(DIROBJ)manager.o $(DIROBJ)client.o
+	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)client.o $(LDLIBS)
+
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
+
+test_manager:
+	./$(DIREXE)manager 3 Libros/ACTITUD-DE-VENDEDOR.txt
 
 test1:
 	./$(DIREXE)SSOOIIGLE Libros/prueba.txt David 3

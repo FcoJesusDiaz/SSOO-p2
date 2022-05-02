@@ -32,15 +32,17 @@ class Searcher{
         int end;
         std::string filename; //archivo en el que se buscará la palabra
         std::string word; //palabra que se debe buscar
+        std::string colour;
         std::vector<Result> results;
     public:
-        Searcher(int id, int begin, int end, std::string filename, std::string word): id(id), 
-        begin(begin), end(end),filename(filename),word(word){};
+        Searcher(int id, int begin, int end, std::string filename, std::string word, std::string colour): id(id), 
+        begin(begin), end(end),filename(filename),word(word),colour(colour){};
 
         void searching();
         void findWord(std::string line, int numLine);
         bool checkWord(std::string checked);
         void storeResults();
         void operator()();
+        std::string to_string();
 };
 #endif
