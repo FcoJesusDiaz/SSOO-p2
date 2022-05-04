@@ -1,9 +1,10 @@
-#include "Request.h"
-
 #include <future>
 #include <string>
+#include <future>
 
-void Request::operator()(int& n){
+#include "Request.h"
+
+void Request::operator()(int* n){
     fut = prom.get_future();
 }
 

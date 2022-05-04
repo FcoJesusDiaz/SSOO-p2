@@ -10,7 +10,7 @@ class Client{
         int balance;
     public:
         Client(int id, client_type type): id(id), type(type){};
-        void make_search();
+        std::string make_search(std::string word);
         void setBalance(int new_balance);
 };
 

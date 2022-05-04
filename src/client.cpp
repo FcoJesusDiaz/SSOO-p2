@@ -1,4 +1,5 @@
 #include "client.h"
+#include "Request.h"
 
 #include <string>
 
@@ -9,6 +10,6 @@ std::string Client::make_search(std::string word){
     return req.get_future_value();
 }
 
-void Clien::setBalance(int new_balance){
+void Client::setBalance(int new_balance){
     balance = new_balance;
 }
