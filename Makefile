@@ -26,13 +26,13 @@ test_manager:
 	./$(DIREXE)manager 3 Libros/ACTITUD-DE-VENDEDOR.txt
 
 test1:
-	./$(DIREXE)SSOOIIGLE Libros/prueba.txt David 3
+	./$(DIREXE)SSOOIIGLE David 
 
 test2:
-	./$(DIREXE)SSOOIIGLE Libros/VIVE-TU-SUEÑO.txt sueña 10
+	./$(DIREXE)SSOOIIGLE sueña 
 
 test3:
-	./$(DIREXE)SSOOIIGLE Libros/ACTITUD-DE-VENDEDOR.txt vender 8
+	./$(DIREXE)SSOOIIGLE vender 
 
 clean : 
 	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~
