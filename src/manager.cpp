@@ -5,13 +5,17 @@
 #include <thread>
 #include <time.h>
 #include <bits/stdc++.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 #include "colors.h"
 #include "client.h"
 
+#define NUMSEARCHERS 4
 //global variables
 std::vector<std::string>dictionary;
 
+void create_searchers(int num_search);
 void check_arguments(int argc, char **argv);
 bool is_integer(char *str);
 void create_dictionary(char *filename);
@@ -20,7 +24,7 @@ void create_clients(int n_clients);
 int main(int argc, char **argv){
     check_arguments(argc, argv);
     create_dictionary(argv[2]);
-    //create_searchers(NUMSEARCHERS);
+    create_searchers(NUMSEARCHERS);
     create_clients(atoi(argv[1]));
     return EXIT_SUCCESS;
 }
@@ -60,8 +64,15 @@ void create_dictionary(char *filename){
     file.close();
 }
 
-void create_searchers(int NUMSEARCHERS){
-
+void create_searchers(int num_search){
+    pid_t searcher_pid;
+    for(int i = 0; i < num_search; i++) {
+        std::cout << "[MANAGER]: Creating child " << i << std::endl;
+        searcher_pid = fork();
+        
+        if(searcher_pid == 0)
+            execlp("exec/SSOOIIGLE", "SSOOIIGLE", std::to_string(i).c_str(), NULL);
+    }
 }
 
 void create_clients(int n_clients){

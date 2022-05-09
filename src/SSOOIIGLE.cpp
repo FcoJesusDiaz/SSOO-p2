@@ -30,12 +30,9 @@ int main(int argc, char **argv){
 
     //checkArguments(argc,argv);
 
-    get_filenames();
+    std::cout << "[SSOOIIGLE "<< argv[1]<< "] My id is: " << argv[1] << std::endl;
 
-    for (int i = 0; i < files.size(); i++)
-    {
-        std::cout << files[i]<< std::endl;
-    }
+    get_filenames();
     
 
     int num_threads=files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
@@ -80,7 +77,7 @@ int main(int argc, char **argv){
     //wait until all threads are finished
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
     
-    printResults(argv[1], v_objetos);
+    //printResults(argv[1], v_objetos);
     
     return EXIT_SUCCESS;
 }

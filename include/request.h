@@ -13,7 +13,7 @@ class Request{
     public:
         Request(int& balance, int client_id, client_type type, std::string word): 
             type(type), word(word){};
-        void set_promise_value(int value);
+        void set_promise_value(std::string value);
         std::string get_future_value();
         int getClientID();
         int getType();

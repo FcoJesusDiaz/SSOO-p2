@@ -1,5 +1,5 @@
 #include "client.h"
-#include "Request.h"
+#include "request.h"
 
 std::string Client::make_search(std::string word){
     Request req{balance, id, type, word};
