@@ -9,14 +9,14 @@
 #include <bits/stdc++.h>
 #include <dirent.h>
 
-#include "Searcher.h"
+#include "thread_searcher.h"
 #include "colors.h"
 
 /*DECLARATIONS OF FUNCTIONS*/
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
-void printResults(std::string word, std::vector<Searcher>);
+void printResults(std::string word, std::vector<thread_searcher>);
 void get_filenames();
 
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv){
 
     //vectors in which we will store the created threads and the searcher instances
     std::vector<std::thread> v_hilos;
-    std::vector<Searcher> v_objetos;
+    std::vector<thread_searcher> v_objetos;
 
     //lines of each thread
     //int task_size = num_lines/num_threads;
@@ -65,7 +65,7 @@ int main(int argc, char **argv){
         if(i!=num_threads-1) l_end= (l_begin+task_size)-1;
         else l_end=num_lines-1; */
 
-        Searcher s{i+1,files[i],argv[1], colours[i % 4]};
+        thread_searcher s{i+1,files[i],argv[1], colours[i % 4]};
         v_objetos.push_back(s);
     }
 
@@ -128,7 +128,7 @@ bool is_integer(char *str){
     return true;
 }
 
-void printResults(std::string word, std::vector<Searcher> v_objetos){
+void printResults(std::string word, std::vector<thread_searcher> v_objetos){
     std::cout <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
 
     for(long unsigned int i = 0; i < v_objetos.size(); i++){

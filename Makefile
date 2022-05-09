@@ -12,8 +12,8 @@ all : dirs SSOOIIGLE manager
 dirs:
 	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
 
-SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
-	$(CC) -o $(DIREXE)$@ $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o $(LDLIBS)
+SSOOIIGLE: $(DIROBJ)searcher.o $(DIROBJ)thread_searcher.o
+	$(CC) -o $(DIREXE)$@ $(DIROBJ)searcher.o $(DIROBJ)thread_searcher.o $(LDLIBS)
 
 manager:  $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)request.o 
 	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)request.o $(LDLIBS)

@@ -23,7 +23,7 @@ struct Result{
 
 /* search engine class that we will assign to each thread to perform the search. includes all methods for 
 searching and storing results */
-class Searcher{
+class thread_searcher{
     private:
         int id;
         std::string filename; //archivo en el que se buscará la palabra
@@ -31,7 +31,7 @@ class Searcher{
         std::string colour;
         std::vector<Result> results;
     public:
-        Searcher(int id, std::string filename, std::string word, std::string colour): id(id), 
+        thread_searcher(int id, std::string filename, std::string word, std::string colour): id(id), 
         filename(filename),word(word),colour(colour){};
 
         void searching();
