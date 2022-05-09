@@ -15,7 +15,8 @@ dirs:
 SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
 	$(CC) -o $(DIREXE)$@ $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o $(LDLIBS)
 
-manager: $(DIROBJ)manager.o $(DIROBJ)client.o request.o
+manager:  
+	$(DIROBJ)manager.o $(DIROBJ)client.o request.o 
 	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)client.o $(LDLIBS)
 
 $(DIROBJ)%.o: $(DIRSRC)%.cpp

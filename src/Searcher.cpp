@@ -18,14 +18,14 @@ extern std::vector<int> numLines;
 we will call the "findword" method to check if the searched word is in this line */
 void Searcher::searching(){
     std::string line;
-    int lines = begin;
+    int lines;
     std::ifstream mFile(filename);
     if(!mFile.is_open()) {
         std::cerr << this->colour << "Thread " << id << " could not open the file " << filename << RESET <<std::endl;
         return;
     }
-    mFile.seekg(numLines[begin]);
-    while(mFile.peek() != EOF && lines <= end)
+    mFile.seekg(0);
+    while(mFile.peek() != EOF )
     {
         getline(mFile, line);
         lines++;
@@ -61,8 +61,6 @@ void Searcher::findWord(std::string line, int numLine){
             coincidencia.id = id;
             coincidencia.line = numLine;
             coincidencia.word = originalWord;
-            coincidencia.l_begin = begin;
-            coincidencia.l_end = end;
             coincidencia.previous = (i != 0) ? tokens[i-1] : "";
             coincidencia.next = (i != tokens.size()-1) ? tokens[i+1] : "";
             results.push_back(coincidencia);
@@ -89,10 +87,11 @@ void Searcher :: operator()(){
 
 std::string Searcher::to_string(){
     std::string result;
+    std::cout << "file: " << filename << " resultados: "<< results.size()<< std::endl;
+    
     for (unsigned i = 0; i < results.size(); i++)
     {
-        result += this->colour + "[Hilo " + std::to_string(results[i].id) + " inicio: " +
-        std::to_string(results[i].l_begin+1) + " - final: " + std::to_string(results[i].l_end+1)
+        result += this->colour + "[Hilo " + std::to_string(results[i].id)+ " Libro: "+ filename
         + "] línea " + std::to_string(results[i].line) + " :: ... " + results[i].previous 
         + " " + results[i].word + " " + results[i].next + RESET + "\n";
     }

@@ -20,6 +20,7 @@ void create_clients(int n_clients);
 int main(int argc, char **argv){
     check_arguments(argc, argv);
     create_dictionary(argv[2]);
+    //create_searchers(NUMSEARCHERS);
     create_clients(atoi(argv[1]));
     return EXIT_SUCCESS;
 }
@@ -57,6 +58,10 @@ void create_dictionary(char *filename){
     while (file >> word)
         if (word.length() > 2) dictionary.push_back(word);
     file.close();
+}
+
+void create_searchers(int NUMSEARCHERS){
+
 }
 
 void create_clients(int n_clients){
