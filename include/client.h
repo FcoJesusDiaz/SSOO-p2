@@ -1,6 +1,8 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include <string>
+
 enum client_type {free_acc, limited_prem, unlimited_prem};
 
 class Client{
@@ -12,6 +14,7 @@ class Client{
         Client(int id, client_type type): id(id), type(type){};
         std::string make_search(std::string word);
         void setBalance(int new_balance);
+        void operator()();
 };
 
 #endif

@@ -7,7 +7,7 @@
 #include <condition_variable>
 #include "colors.h"
 
-#include "Searcher.h"
+#include "thread_searcher.h"
 
 /*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
@@ -16,16 +16,16 @@ extern std::vector<int> numLines;
 
 /* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
 we will call the "findword" method to check if the searched word is in this line */
-void Searcher::searching(){
+void thread_searcher::searching(){
     std::string line;
-    int lines = begin;
+    int lines;
     std::ifstream mFile(filename);
     if(!mFile.is_open()) {
         std::cerr << this->colour << "Thread " << id << " could not open the file " << filename << RESET <<std::endl;
         return;
     }
-    mFile.seekg(numLines[begin]);
-    while(mFile.peek() != EOF && lines <= end)
+    mFile.seekg(0);
+    while(mFile.peek() != EOF )
     {
         getline(mFile, line);
         lines++;
@@ -39,7 +39,7 @@ positions will have the words that form that line. once the array is created; We
 each word we will call the checkword method that will tell us if that word has the substring we are looking 
 for. In the true case, we will create a Result structure with the necessary data and include it in the 
 thread's private result vector. */
-void Searcher::findWord(std::string line, int numLine){
+void thread_searcher::findWord(std::string line, int numLine){
     std::transform(word.begin(), word.end(), word.begin(), ::tolower);
     std::vector<std::string> tokens;
     std::stringstream check1(line);
@@ -61,8 +61,6 @@ void Searcher::findWord(std::string line, int numLine){
             coincidencia.id = id;
             coincidencia.line = numLine;
             coincidencia.word = originalWord;
-            coincidencia.l_begin = begin;
-            coincidencia.l_end = end;
             coincidencia.previous = (i != 0) ? tokens[i-1] : "";
             coincidencia.next = (i != tokens.size()-1) ? tokens[i+1] : "";
             results.push_back(coincidencia);
@@ -71,7 +69,7 @@ void Searcher::findWord(std::string line, int numLine){
 }
 
 //method to check if the substring we want is contained in a higher string
-bool Searcher::checkWord(std::string checked){
+bool thread_searcher::checkWord(std::string checked){
 
     /* we convert from string to const char to be able to use the strstr function and check if a substring 
     is contained in a larger string*/
@@ -83,16 +81,17 @@ bool Searcher::checkWord(std::string checked){
     return false;
 }
 
-void Searcher :: operator()(){
+void thread_searcher :: operator()(){
     searching();
 }
 
-std::string Searcher::to_string(){
+std::string thread_searcher::to_string(){
     std::string result;
+    std::cout << "file: " << filename << " resultados: "<< results.size()<< std::endl;
+    
     for (unsigned i = 0; i < results.size(); i++)
     {
-        result += this->colour + "[Hilo " + std::to_string(results[i].id) + " inicio: " +
-        std::to_string(results[i].l_begin+1) + " - final: " + std::to_string(results[i].l_end+1)
+        result += this->colour + "[Hilo " + std::to_string(results[i].id)+ " Libro: "+ filename
         + "] línea " + std::to_string(results[i].line) + " :: ... " + results[i].previous 
         + " " + results[i].word + " " + results[i].next + RESET + "\n";
     }

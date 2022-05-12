@@ -18,25 +18,21 @@ struct Result{
     std::string next;
     std::string word;
     int id;
-    int l_begin;
-    int l_end;
     int line;
 };
 
 /* search engine class that we will assign to each thread to perform the search. includes all methods for 
 searching and storing results */
-class Searcher{
+class thread_searcher{
     private:
         int id;
-        int begin;
-        int end;
         std::string filename; //archivo en el que se buscará la palabra
         std::string word; //palabra que se debe buscar
         std::string colour;
         std::vector<Result> results;
     public:
-        Searcher(int id, int begin, int end, std::string filename, std::string word, std::string colour): id(id), 
-        begin(begin), end(end),filename(filename),word(word),colour(colour){};
+        thread_searcher(int id, std::string filename, std::string word, std::string colour): id(id), 
+        filename(filename),word(word),colour(colour){};
 
         void searching();
         void findWord(std::string line, int numLine);
