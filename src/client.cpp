@@ -1,8 +1,10 @@
 #include <iostream>
 #include <queue>
+#include <fstream>
 
 #include "client.h"
 #include "request.h"
+#include "colors.h"
 
 extern std::vector<std::string> dictionary;
 extern std::queue<Request> premium_requests;
@@ -10,14 +12,14 @@ extern std::queue<Request> normal_requests;
 extern std::condition_variable condition;
 
 std::string Client::make_search(){
-    fut = prom.get_future();
-    Request req{balance, id, type, choose_word(), prom, fut};
-    if(type == free_acc) premium_requests.push(req);
-    else normal_requests.push(req);
+    Request req{balance, id, type, choose_word(), std::ref(prom), std::ref(fut)};
+    if(type == free_acc) normal_requests.push(req);
+    else premium_requests.push(req);
     condition.notify_one();
-    std::cout << "Client id: "<< id << " Palabra: " << req.getWord() << " Balance: " << balance <<std::endl;
-    std::string word = fut.get();
-    return word;
+    std::cout << "Client id: "<< id << " Client type " << type <<" Palabra: " << req.getWord() << " Balance: " << balance <<std::endl;
+    std::string results = fut.get();
+    std::cout << "Resultados:\n" << results << std::endl;
+    return "";
 }
 
 void Client::set_balance(int new_balance){
@@ -25,13 +27,15 @@ void Client::set_balance(int new_balance){
 }
 
 std::string Client::choose_word(){
-    srand(time(NULL));
     int random_num = rand() % dictionary.size();
-    std::cout << "Dictionary size: " << dictionary.size() << " Random number: " 
-    << random_num << std::endl;
-    std::cout << "Client id " << id << " Random number " << random_num << 
-    "Palabra :" << dictionary[random_num] << std::endl;
     return dictionary[random_num];
+}
+
+void Client::log_result(std::string results){
+    std::cout << "Resultados:\n" << results << std::endl;
+    std::string filename = filename + LOG_DIR + std::to_string(id) + ".txt";
+    std::ofstream out(filename);
+    out << results;
 }
 
 void Client::operator()(){

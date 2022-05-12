@@ -8,9 +8,7 @@ class Searcher{
     public:
         Searcher(int id): id(id){};
         void operator()();
-        int CountLines(std::string filename);
-        void printResults(std::string word, std::vector<thread_searcher> v_objetos);
-        void get_filenames();
+        void send_results(std::string word, std::vector<thread_searcher> v_objetos);
 };
 
 #endif

@@ -22,7 +22,7 @@ $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
 test:
-	./$(DIREXE)manager 3 Libros/dictionary.txt
+	./$(DIREXE)manager 1 Libros/dictionary.txt
 
 test_debug:
 	./$(DIREXE)manager_debug 1 Libros/dictionary.txt

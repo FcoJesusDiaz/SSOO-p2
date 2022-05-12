@@ -1,15 +1,16 @@
 #include <future>
 #include <string>
 #include <future>
+#include <iostream>
 
 #include "request.h"
 
 extern enum client_type type;
 
 
-/*void Request::set_promise_value(std::string value){
+void Request::set_promise_value(std::string value){
     prom.set_value(value);
-}*/
+}
 
 int Request::getClientID(){
     return client_id;

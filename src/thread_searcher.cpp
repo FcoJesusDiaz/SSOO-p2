@@ -17,6 +17,7 @@ extern std::vector<int> numLines;
 /* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
 we will call the "findword" method to check if the searched word is in this line */
 void thread_searcher::searching(){
+    std::cout << "[THREAD " << id <<"]: hola, mi fichero es:" << filename << std::endl;
     std::string line;
     int lines;
     std::ifstream mFile(filename);
@@ -83,11 +84,13 @@ bool thread_searcher::checkWord(std::string checked){
 
 void thread_searcher :: operator()(){
     searching();
+    //std::cout << to_string() << std::endl;
+    
 }
 
 std::string thread_searcher::to_string(){
     std::string result;
-    std::cout << "file: " << filename << " resultados: "<< results.size()<< std::endl;
+    //std::cout << "file: " << filename << " resultados: "<< results.size()<< std::endl;
     
     for (unsigned i = 0; i < results.size(); i++)
     {
