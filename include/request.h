@@ -25,6 +25,7 @@ class Request{
         int getType();
         int decrease_balance();
         std::string getWord();
+        std::string to_string();
 
 };
 

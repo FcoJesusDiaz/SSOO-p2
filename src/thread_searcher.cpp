@@ -84,9 +84,28 @@ bool thread_searcher::checkWord(std::string checked){
 
 void thread_searcher :: operator()(){
     searching();
-    //std::cout << to_string() << std::endl;
-    
 }
+
+/*decrease_balance(){
+//SECCIÓN CRÍTICA
+if(saldo == 0 && type == free_acc) exit
+if(saldo == 0 && type == limited_premium) {
+    jsdgfakgdsa;
+    mutex.unlock()
+    while(saldo == 0);
+}
+else saldo--;
+//SECCIÓN CRÍTICA
+
+
+///BUSQUEDA DE PAGO
+
+while(1){
+    mutex.lock();
+
+}
+    
+}*/
 
 std::string thread_searcher::to_string(){
     std::string result;

@@ -20,6 +20,10 @@ int Request::getType(){
     return type;
 }
 
+std::string Request::to_string(){
+    return "Client id: " + std::to_string(client_id) + ". Balance " + std::to_string(balance) + ". Word " + word;
+}
+
 /*int Request::decrease_balance(){
     return --balance;
 }*/
