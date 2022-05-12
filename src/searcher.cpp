@@ -11,9 +11,9 @@
 #include <stdlib.h>
 #include <condition_variable>
 
-#include "thread_searcher.h"
 #include "request.h"
 #include "colors.h"
+#include "searcher.h"
 
 /*DECLARATIONS OF FUNCTIONS*/
 int CountLines(std::string filename);
@@ -35,12 +35,9 @@ extern std::condition_variable condition;
 extern std::mutex sem;
 extern std::unique_lock<std::mutex>queue_size;
 
-/*MAIN*/
-int main(int argc, char **argv){
 
-    //checkArguments(argc,argv);
-
-    std::cout << "[Searcher "<< argv[1]<< "] My id is: " << argv[1] << std::endl;
+void Searcher::operator()(){
+    std::cout << "[Searcher "<< this->id << "] My id is: " << this->id << std::endl;
 
     get_filenames();
 
@@ -50,27 +47,28 @@ int main(int argc, char **argv){
     std::vector<std::thread> v_hilos;
     std::vector<thread_searcher> v_objetos;
     int random_num;
-    //lines of each thread
-    //int task_size = num_lines/num_threads;
+
+    Request *req;
+
     while(1){
         condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
         
-        srand(time(0));  
+        srand(time(NULL));  
         random_num = (rand() % 10) + 1;
         
         if(!premium_requests.empty() && random_num >= 1 && random_num <= 8){
-            Request req = premium_requests.front();
+            req = &premium_requests.front();
             premium_requests.pop();
         }
         
         else if(!normal_requests.empty() && (random_num == 9 || random_num == 10)){
-            Request req = normal_requests.front();
+            req = &normal_requests.front();
             normal_requests.pop();
         }
         
         for (long unsigned i = 0; i < files.size(); i++)
         {
-            thread_searcher s{i+1,files[i],argv[1], colours[i % 4]};
+            thread_searcher s{i+1,files[i],req->getWord(), colours[i % 4]};
             v_objetos.push_back(s);
         }
 
@@ -83,14 +81,12 @@ int main(int argc, char **argv){
     std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
     
     //printResults(argv[1], v_objetos);
-    
-    return EXIT_SUCCESS;
 }
 
 /* method to count the number of lines of the requested file and to obtain the byte in which each line 
 starts so that we can tell each thread in which byte to start reading. we store that byte in the vector 
 "numLines" */
-int CountLines(std::string filename){
+int Searcher::CountLines(std::string filename){
     int lines;
     std::string line;
     std::ifstream mFile(filename);
@@ -112,28 +108,8 @@ int CountLines(std::string filename){
 	return lines;
 
 }
-/* method to check that the arguments used are correct. Otherwise, the execution of the program ends. */
-void checkArguments(int argc, char **argv){
-    if (argc!=4)
-    {
-        std::cerr << RED << "Usage: <SSOIIGLE> <file> <word> <number of threads>" <<  RESET << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    if (!is_integer(argv[3])){
-        std::cerr << RED << "The number of threads input must be a positive integer" << RESET << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    
-}
-//method used to check if the number of threads established is correct
-bool is_integer(char *str){
-    while (*str)
-        if (!isdigit(*str++))
-            return false;
-    return true;
-}
 
-void printResults(std::string word, std::vector<thread_searcher> v_objetos){
+void Searcher::printResults(std::string word, std::vector<thread_searcher> v_objetos){
     std::cout <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
 
     for(long unsigned int i = 0; i < v_objetos.size(); i++){
@@ -141,7 +117,7 @@ void printResults(std::string word, std::vector<thread_searcher> v_objetos){
     }
 }
 
-void get_filenames(){
+void Searcher::get_filenames(){
     
     DIR *dir;
     struct dirent *ent;
@@ -156,6 +132,4 @@ void get_filenames(){
     } else {
         std::cerr << RED << "Could not open the directory" <<  RESET << std::endl;
     }
-
-    
 }

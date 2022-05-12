@@ -7,31 +7,25 @@ CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
 LDLIBS := -lpthread -lrt
 CC := g++
 
-all : dirs SSOOIIGLE manager
+all : dirs manager manager_debug
 
 dirs:
 	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
 
-SSOOIIGLE: $(DIROBJ)searcher.o $(DIROBJ)thread_searcher.o
-	$(CC) -o $(DIREXE)$@ $(DIROBJ)searcher.o $(DIROBJ)thread_searcher.o $(LDLIBS)
+manager:  $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)thread_searcher.o $(DIROBJ)request.o $(DIROBJ)searcher.o 
+	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)searcher.o $(DIROBJ)client.o $(DIROBJ)request.o $(DIROBJ)thread_searcher.o $(LDLIBS)
 
-manager:  $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)request.o 
-	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)request.o $(LDLIBS)
+manager_debug:  $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)thread_searcher.o $(DIROBJ)request.o $(DIROBJ)searcher.o 
+	$(CC) -g -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)searcher.o $(DIROBJ)client.o $(DIROBJ)request.o $(DIROBJ)thread_searcher.o $(LDLIBS)
 
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
-test_manager:
-	./$(DIREXE)manager 3 Libros/ACTITUD-DE-VENDEDOR.txt
+test:
+	./$(DIREXE)manager 3 Libros/dictionary.txt
 
-test1:
-	./$(DIREXE)SSOOIIGLE David 
-
-test2:
-	./$(DIREXE)SSOOIIGLE sueña 
-
-test3:
-	./$(DIREXE)SSOOIIGLE vender 
+test_debug:
+	./$(DIREXE)manager_debug 1 Libros/dictionary.txt
 
 clean : 
 	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~

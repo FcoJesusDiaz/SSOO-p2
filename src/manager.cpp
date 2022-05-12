@@ -12,9 +12,11 @@
 #include "colors.h"
 #include "client.h"
 #include "request.h"
+#include "searcher.h"
 
 
 #define NUMSEARCHERS 4
+#define MAX_BALANCE 20
 
 
 //global variables
@@ -25,9 +27,6 @@ std::condition_variable condition;
 std::mutex sem;
 std::unique_lock<std::mutex>queue_size(sem);
 
-
-
-
 void create_searchers(int num_search);
 void check_arguments(int argc, char **argv);
 bool is_integer(char *str);
@@ -37,7 +36,7 @@ void create_clients(int n_clients);
 int main(int argc, char **argv){
     check_arguments(argc, argv);
     create_dictionary(argv[2]);
-    create_searchers(NUMSEARCHERS);
+    //create_searchers(NUMSEARCHERS);
     create_clients(atoi(argv[1]));
     return EXIT_SUCCESS;
 }
@@ -78,24 +77,24 @@ void create_dictionary(char *filename){
 }
 
 void create_searchers(int num_search){
-    pid_t searcher_pid;
     for(int i = 0; i < num_search; i++) {
-        std::cout << "[MANAGER]: Creating child " << i << std::endl;
-        searcher_pid = fork();
-        
-        if(searcher_pid == 0)
-            execlp("exec/searcher", "searcher", std::to_string(i).c_str(), NULL);
+        std::cout << "[MANAGER]: Creating searcher " << i << std::endl;
+        Searcher s(i);
+        std::thread t(s);
+        t.detach();
     }
 }
 
 void create_clients(int n_clients){
     std::vector<std::thread>vec_threads;
+    client_type type;
 
     for(int i = 0; i < n_clients; i++){
         std::cout << "[MANAGER]: " << "creating client " << i+1 << std::endl;
-        Client c{i+1, (client_type)(rand() % 3)};
+        type = (client_type)(rand() % 3);
+        Client c{i+1, type , (type == unlimited_prem) ? -1 : (rand() % MAX_BALANCE)};
         srand(time(NULL));
-        vec_threads.push_back(std::thread(c));
+        vec_threads.push_back(std::thread(std::ref(c)));
         if(i % (std::thread::hardware_concurrency()/2) == 3)
         std::this_thread::sleep_for (std::chrono::seconds(2));
     }

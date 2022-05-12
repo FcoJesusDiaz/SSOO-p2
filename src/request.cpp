@@ -7,16 +7,12 @@
 extern enum client_type type;
 
 
-void Request::set_promise_value(std::string value){
+/*void Request::set_promise_value(std::string value){
     prom.set_value(value);
-}
-
-std::string Request::get_future_value(){
-    return fut.get();
-}
+}*/
 
 int Request::getClientID(){
-    //return client_id;
+    return client_id;
 }
 
 int Request::getType(){
@@ -27,7 +23,7 @@ int Request::getType(){
     return --balance;
 }*/
 
-/*std::string getWord(){
+std::string Request::getWord(){
     return word;
-}*/
+}
 

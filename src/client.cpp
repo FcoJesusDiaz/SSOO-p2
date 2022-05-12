@@ -1,15 +1,40 @@
+#include <iostream>
+#include <queue>
+
 #include "client.h"
 #include "request.h"
 
-std::string Client::make_search(std::string word){
-    Request req{balance, id, type, word};
-    //cola_de_requests.push(std::ref(req));
-    //variable_de_aceso_a_cola_de_request.notify_one();
-    return req.get_future_value();
+extern std::vector<std::string> dictionary;
+extern std::queue<Request> premium_requests;
+extern std::queue<Request> normal_requests;
+extern std::condition_variable condition;
+
+std::string Client::make_search(){
+    fut = prom.get_future();
+    Request req{balance, id, type, choose_word(), prom, fut};
+    if(type == free_acc) premium_requests.push(req);
+    else normal_requests.push(req);
+    condition.notify_one();
+    std::cout << "Client id: "<< id << " Palabra: " << req.getWord() << " Balance: " << balance <<std::endl;
+    std::string word = fut.get();
+    return word;
 }
 
-void Client::setBalance(int new_balance){
+void Client::set_balance(int new_balance){
     balance = new_balance;
 }
 
-void Client::operator()(){};
+std::string Client::choose_word(){
+    srand(time(NULL));
+    int random_num = rand() % dictionary.size();
+    std::cout << "Dictionary size: " << dictionary.size() << " Random number: " 
+    << random_num << std::endl;
+    std::cout << "Client id " << id << " Random number " << random_num << 
+    "Palabra :" << dictionary[random_num] << std::endl;
+    return dictionary[random_num];
+}
+
+void Client::operator()(){
+   make_search();
+};
+
