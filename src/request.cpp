@@ -6,9 +6,6 @@
 
 extern enum client_type type;
 
-void Request::operator()(int* balance){
-    fut = prom.get_future();
-}
 
 void Request::set_promise_value(std::string value){
     prom.set_value(value);

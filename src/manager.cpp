@@ -7,13 +7,26 @@
 #include <bits/stdc++.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <condition_variable>
 
 #include "colors.h"
 #include "client.h"
+#include "request.h"
+
 
 #define NUMSEARCHERS 4
+
+
 //global variables
-std::vector<std::string>dictionary;
+std::vector<std::string> dictionary;
+std::queue<Request> premium_requests;
+std::queue<Request> normal_requests;
+std::condition_variable condition;
+std::mutex sem;
+std::unique_lock<std::mutex>queue_size(sem);
+
+
+
 
 void create_searchers(int num_search);
 void check_arguments(int argc, char **argv);
@@ -71,7 +84,7 @@ void create_searchers(int num_search){
         searcher_pid = fork();
         
         if(searcher_pid == 0)
-            execlp("exec/SSOOIIGLE", "SSOOIIGLE", std::to_string(i).c_str(), NULL);
+            execlp("exec/searcher", "searcher", std::to_string(i).c_str(), NULL);
     }
 }
 

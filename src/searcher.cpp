@@ -8,8 +8,11 @@
 #include <mutex>
 #include <bits/stdc++.h>
 #include <dirent.h>
+#include <stdlib.h>
+#include <condition_variable>
 
 #include "thread_searcher.h"
+#include "request.h"
 #include "colors.h"
 
 /*DECLARATIONS OF FUNCTIONS*/
@@ -25,53 +28,55 @@ std::vector<int> numLines; //array to hold the start byte of each line
 std::string colours[] = {BOLDBLUE, BOLDGREEN, BOLDYELLOW, BOLDMAGENTA};
 std::vector<std::string> files;
 
+/*EXTERN VARIABLES*/
+extern std::queue<Request> premium_requests;
+extern std::queue<Request> normal_requests;
+extern std::condition_variable condition;
+extern std::mutex sem;
+extern std::unique_lock<std::mutex>queue_size;
+
 /*MAIN*/
 int main(int argc, char **argv){
 
     //checkArguments(argc,argv);
 
-    std::cout << "[SSOOIIGLE "<< argv[1]<< "] My id is: " << argv[1] << std::endl;
+    std::cout << "[Searcher "<< argv[1]<< "] My id is: " << argv[1] << std::endl;
 
     get_filenames();
-    
 
     int num_threads=files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
-
-    //int num_lines=CountLines(argv[1]);
-
-    
-    /* if the number of threads requested is greater than the number of lines of the indicated file; 
-    program ends */
-    /*
-    if(num_lines<num_threads) {
-        std::cerr << RED<< "The number of threads is higher than the number of lines"<< RESET<<std::endl;
-        exit(EXIT_FAILURE);
-    }
-    std::cout << "The file has "<< num_lines <<" lines"<< std::endl;
-    */
 
     //vectors in which we will store the created threads and the searcher instances
     std::vector<std::thread> v_hilos;
     std::vector<thread_searcher> v_objetos;
-
+    int random_num;
     //lines of each thread
     //int task_size = num_lines/num_threads;
+    while(1){
+        condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
+        
+        srand(time(0));  
+        random_num = (rand() % 10) + 1;
+        
+        if(!premium_requests.empty() && random_num >= 1 && random_num <= 8){
+            Request req = premium_requests.front();
+            premium_requests.pop();
+        }
+        
+        else if(!normal_requests.empty() && (random_num == 9 || random_num == 10)){
+            Request req = normal_requests.front();
+            normal_requests.pop();
+        }
+        
+        for (long unsigned i = 0; i < files.size(); i++)
+        {
+            thread_searcher s{i+1,files[i],argv[1], colours[i % 4]};
+            v_objetos.push_back(s);
+        }
 
-    for (int i = 0; i < files.size(); i++)
-    {
-        /*
-        int l_begin= i*task_size;
-        int l_end;
-        if(i!=num_threads-1) l_end= (l_begin+task_size)-1;
-        else l_end=num_lines-1; */
-
-        thread_searcher s{i+1,files[i],argv[1], colours[i % 4]};
-        v_objetos.push_back(s);
-    }
-
-
-    for (int i = 0; i < num_threads; i++){
-        v_hilos.push_back(std::thread(std::ref(v_objetos[i])));
+        for (int i = 0; i < num_threads; i++){
+            v_hilos.push_back(std::thread(std::ref(v_objetos[i])));
+        }
     }
 
     //wait until all threads are finished
