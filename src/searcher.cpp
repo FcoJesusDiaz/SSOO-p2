@@ -7,155 +7,109 @@
 #include <chrono>
 #include <mutex>
 #include <bits/stdc++.h>
-#include <dirent.h>
 #include <stdlib.h>
 #include <condition_variable>
+#include <atomic>
 
-#include "thread_searcher.h"
 #include "request.h"
 #include "colors.h"
+#include "searcher.h"
 
 /*DECLARATIONS OF FUNCTIONS*/
 int CountLines(std::string filename);
 void checkArguments(int argc, char **argv);
 bool is_integer(char *str);
 void printResults(std::string word, std::vector<thread_searcher>);
-void get_filenames();
 
 
 /*GLOBAL VARIABLES*/
-std::vector<int> numLines; //array to hold the start byte of each line
 std::string colours[] = {BOLDBLUE, BOLDGREEN, BOLDYELLOW, BOLDMAGENTA};
-std::vector<std::string> files;
+extern std::vector<std::string> files;
 
 /*EXTERN VARIABLES*/
 extern std::queue<Request> premium_requests;
 extern std::queue<Request> normal_requests;
 extern std::condition_variable condition;
 extern std::mutex sem;
-extern std::unique_lock<std::mutex>queue_size;
+extern std::mutex sem_premium;
+extern std::mutex sem_normal;
+extern std::atomic<int> occupied_threads;
 
-/*MAIN*/
-int main(int argc, char **argv){
-
-    //checkArguments(argc,argv);
-
-    std::cout << "[Searcher "<< argv[1]<< "] My id is: " << argv[1] << std::endl;
-
-    get_filenames();
-
-    int num_threads=files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
-
-    //vectors in which we will store the created threads and the searcher instances
-    std::vector<std::thread> v_hilos;
-    std::vector<thread_searcher> v_objetos;
+void Searcher::operator()(){
+    int num_threads = files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
     int random_num;
-    //lines of each thread
-    //int task_size = num_lines/num_threads;
+
     while(1){
-        condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
+        std::unique_lock<std::mutex>queue_size(sem);
+        std::vector<std::thread> v_hilos;
+        std::vector<thread_searcher> v_objetos;
+        Request *req;
         
-        srand(time(0));  
+
+        condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
+        occupied_threads = occupied_threads - 1;
+        std::cout << "[Searcher " << id << "]: Exiting condition..." << std::endl;
+        std::cout << BOLDGREEN << "[SEARCHER " << id << "]: "<<"Free searchers: " << occupied_threads << RESET << std::endl;
         random_num = (rand() % 10) + 1;
         
-        if(!premium_requests.empty() && random_num >= 1 && random_num <= 8){
-            Request req = premium_requests.front();
+        if(premium_requests.empty() && !normal_requests.empty()){
+            sem_normal.lock();
+            std::cout << "[Searcher " << id << "]: Retrieving request for normal requests queue" << std::endl;
+            req = &normal_requests.front();
+            normal_requests.pop();
+            sem_normal.unlock();
+        }
+
+        else if(!premium_requests.empty() && normal_requests.empty()){
+            sem_premium.lock();
+            std::cout << "[Searcher " << id << "]: Retrieving request for premium requests queue" << std::endl;
+            req = &premium_requests.front();
             premium_requests.pop();
+            sem_premium.unlock();
+        }
+
+        else if(!premium_requests.empty() && !normal_requests.empty() && random_num >= 1 && random_num <= 8){
+            sem_premium.lock();
+            std::cout << "[Searcher " << id << "]: Retrieving request for premium requests queue" << std::endl;
+            req = &premium_requests.front();
+            premium_requests.pop();
+            sem_premium.unlock();
         }
         
-        else if(!normal_requests.empty() && (random_num == 9 || random_num == 10)){
-            Request req = normal_requests.front();
+        else{
+            sem_normal.lock();
+            std::cout << "[Searcher " << id << "]: Retrieving request for normal requests queue" << std::endl;
+            req = &normal_requests.front();
             normal_requests.pop();
+            sem_normal.unlock();
         }
+
+        std::cout << BOLDBLUE << "[Searcher " << id << "]: Element retreived: " << req->to_string() << RESET << std::endl;
+
+        queue_size.unlock();
         
         for (long unsigned i = 0; i < files.size(); i++)
         {
-            thread_searcher s{i+1,files[i],argv[1], colours[i % 4]};
+            thread_searcher s{(int)(i+1),files[i],"hola", colours[i % 4]};
             v_objetos.push_back(s);
         }
 
         for (int i = 0; i < num_threads; i++){
             v_hilos.push_back(std::thread(std::ref(v_objetos[i])));
         }
-    }
 
-    //wait until all threads are finished
-    std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
-    
-    //printResults(argv[1], v_objetos);
-    
-    return EXIT_SUCCESS;
-}
-
-/* method to count the number of lines of the requested file and to obtain the byte in which each line 
-starts so that we can tell each thread in which byte to start reading. we store that byte in the vector 
-"numLines" */
-int CountLines(std::string filename){
-    int lines;
-    std::string line;
-    std::ifstream mFile(filename);
-    if(!mFile.is_open()) 
-	{
-        std::cerr<< RED <<"Could not open file: "<< filename << RESET << std::endl;
-        exit(EXIT_FAILURE);
-	}
-
-	while(mFile.peek()!=EOF)
-	{
-        numLines.push_back(mFile.tellg());
-		getline(mFile, line);
-        lines++;
-            
-	}
-
-	mFile.close();
-	return lines;
-
-}
-/* method to check that the arguments used are correct. Otherwise, the execution of the program ends. */
-void checkArguments(int argc, char **argv){
-    if (argc!=4)
-    {
-        std::cerr << RED << "Usage: <SSOIIGLE> <file> <word> <number of threads>" <<  RESET << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    if (!is_integer(argv[3])){
-        std::cerr << RED << "The number of threads input must be a positive integer" << RESET << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    
-}
-//method used to check if the number of threads established is correct
-bool is_integer(char *str){
-    while (*str)
-        if (!isdigit(*str++))
-            return false;
-    return true;
-}
-
-void printResults(std::string word, std::vector<thread_searcher> v_objetos){
-    std::cout <<" Results for: " << BOLDYELLOW << word << RESET << std::endl;
-
-    for(long unsigned int i = 0; i < v_objetos.size(); i++){
-        std::cout << v_objetos[i].to_string();
-    }
-}
-
-void get_filenames(){
-    
-    DIR *dir;
-    struct dirent *ent;
-    if ((dir = opendir ("Libros")) != NULL) {
-    
-        while ((ent = readdir (dir)) != NULL) {
-            std::string file = ent->d_name;
-            file = "Libros/" + file;
-            if(file!="Libros/."&& file!="Libros/..") files.push_back(file);
+        //wait until all threads are finished
+        std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
+        
+        std::string results = results + " Results for: " + BOLDYELLOW + "hola" + RESET + "\n";
+        for(long unsigned int i = 0; i < v_objetos.size(); i++){
+            results += v_objetos[i].to_string();
         }
-        closedir (dir);
-    } else {
-        std::cerr << RED << "Could not open the directory" <<  RESET << std::endl;
-    }
+        req->set_promise_value(results);
 
-    
+        std::this_thread::sleep_for (std::chrono::milliseconds(50));
+        occupied_threads = occupied_threads + 1;
+        std::cout << BOLDGREEN << "[SEARCHER " << id << "]: "<<"Finished request, free searchers: " << occupied_threads << RESET << std::endl;
+    }
 }
+

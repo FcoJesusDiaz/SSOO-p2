@@ -9,8 +9,8 @@
             - JAVIER VILLAR ASENSIO
 */
 
-#ifndef SEARCHER_H
-#define SEARCHER_H
+#ifndef THREAD_SEARCHER_H
+#define TRHEAD_SEARCHER_H
 
 //structure that we will use for the results
 struct Result{
