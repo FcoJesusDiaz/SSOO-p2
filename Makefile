@@ -8,7 +8,7 @@ CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
 LDLIBS := -lpthread -lrt
 CC := g++
 
-all : rm_results dirs manager manager_debug 
+all : dirs rm_results manager manager_debug 
 
 dirs:
 	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRRESULTS)
