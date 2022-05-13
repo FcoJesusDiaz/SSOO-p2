@@ -16,13 +16,6 @@
 #include "colors.h"
 #include "searcher.h"
 
-/*DECLARATIONS OF FUNCTIONS*/
-int CountLines(std::string filename);
-void checkArguments(int argc, char **argv);
-bool is_integer(char *str);
-void printResults(std::string word, std::vector<thread_searcher>);
-
-
 /*GLOBAL VARIABLES*/
 std::string colours[] = {BOLDBLUE, BOLDGREEN, BOLDYELLOW, BOLDMAGENTA};
 extern std::vector<std::string> files;
