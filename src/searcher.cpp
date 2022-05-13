@@ -43,11 +43,11 @@ void Searcher::operator()(){
 
         unsigned t0 = clock();
 
-        wait_for_results(v_objetos, client_id, type, word, req->get_balance());
+        wait_for_results(std::ref(v_objetos), client_id, type, word, req->get_balance());
 
         unsigned t1 = clock();
 
-        results = results + set_result(v_objetos, client_id, type, word, (double(t1-t0) / CLOCKS_PER_SEC));
+        results = results + set_result(std::ref(v_objetos), client_id, type, word, (double(t1-t0) / CLOCKS_PER_SEC));
 
         req->set_promise_value(results);
         
@@ -57,7 +57,7 @@ void Searcher::operator()(){
     }
 }
 
-std::string Searcher::set_result(std::vector<thread_searcher> v_objetos, int client_id, client_type type, std::string word, double time){
+std::string Searcher::set_result(std::vector<thread_searcher> &v_objetos, int client_id, client_type type, std::string word, double time){
     std::string results = "[Client id " + std::to_string(client_id) + "] with type " + std::to_string(type) + ". 0(Free account), 1(Limited premium), 2(Unlimited_premium)\n";
     results = results + "Time of execution in seconds: " + std::to_string(time) + " \nResults for: " + BOLDYELLOW + word + RESET + "\n";
     for(long unsigned int i = 0; i < v_objetos.size(); i++){
@@ -66,7 +66,7 @@ std::string Searcher::set_result(std::vector<thread_searcher> v_objetos, int cli
     return results;
 }
 
-void Searcher::wait_for_results(std::vector<thread_searcher> v_objetos, int client_id, client_type type, std::string word, int& balance){
+void Searcher::wait_for_results(std::vector<thread_searcher> &v_objetos, int client_id, client_type type, std::string word, int& balance){
     
     std::mutex balance_sync;
     std::vector<std::thread> v_hilos;

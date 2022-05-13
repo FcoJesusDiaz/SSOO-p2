@@ -8,10 +8,9 @@ class Searcher{
     public:
         Searcher(int id): id(id){};
         void operator()();
-        void send_results(std::string word, std::vector<thread_searcher> v_objetos);
         Request* retrieve_from_queue();
-        void wait_for_results(std::vector<thread_searcher> v_objetos, int client_id, client_type type, std::string word, int& balance);
-        std::string set_result(std::vector<thread_searcher> v_objetos, int client_id, client_type type, std::string word, double time);
+        void wait_for_results(std::vector<thread_searcher> &v_objetos, int client_id, client_type type, std::string word, int& balance);
+        std::string set_result(std::vector<thread_searcher> &v_objetos, int client_id, client_type type, std::string word, double time);
 };  
 
 #endif

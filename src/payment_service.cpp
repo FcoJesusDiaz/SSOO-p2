@@ -28,7 +28,6 @@ void payment_service::operator()(){
     payment_sem.lock();
     while(1){  
         payment_sem.lock();
-        //std::cout << "[PAYMENT] Updating balance... " << id_send <<": " << *array_balances[id_send] << std::endl;
         update_balance();
         client_sem.unlock();
         
