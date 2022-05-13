@@ -11,7 +11,7 @@ CC := g++
 all : rm_results dirs manager manager_debug 
 
 dirs:
-	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
+	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRRESULTS)
 
 rm_results:
 	rm -r $(DIRRESULTS)
