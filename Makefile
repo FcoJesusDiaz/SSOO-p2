@@ -11,7 +11,7 @@ CC := g++
 all : rm_results dirs manager manager_debug 
 
 dirs:
-	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRRESULTS)
+	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
 
 rm_results:
 	rm -r $(DIRRESULTS)
@@ -31,5 +31,6 @@ test:
 test_debug:
 	./$(DIREXE)manager_debug 1 Libros/dictionary.txt
 
-clean : 
+clean : rm_results
+	mkdir $(DIRRESULTS)
 	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~
