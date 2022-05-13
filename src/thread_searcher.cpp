@@ -13,6 +13,10 @@
 /*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
 
+extern int id_send;
+extern std::mutex payment_sem;
+extern std::mutex client_sem;
+
 /*DEFINITION OF METHODS INSIDE SEARCHER*/
 
 /* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
@@ -98,8 +102,9 @@ void thread_searcher::decrease_balance(){
     }
     else if(balance == 0 && type == limited_prem) {
         std::cout << "[THREAD " << id <<"]: no balance left on limited premium client. Waiting balance update...UPDATED" << std::endl;
-        balance = 10;
-        //while(balance == 0);
+        client_sem.lock();
+        id_send = client_id;
+        payment_sem.unlock();
     }
     else{ 
         balance--;

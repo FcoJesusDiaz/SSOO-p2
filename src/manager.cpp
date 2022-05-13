@@ -15,6 +15,7 @@
 #include "client.h"
 #include "request.h"
 #include "searcher.h"
+#include "payment_service.h"
 
 
 #define NUMSEARCHERS 2
@@ -32,6 +33,10 @@ std::mutex sem_premium;
 std::mutex sem_normal;
 std::atomic<int> occupied_threads(NUMSEARCHERS);
 std::mutex notifications;
+int **array_balances= NULL;
+int id_send;
+std::mutex payment_sem;
+std::mutex client_sem;
 
 std::vector<std::string> files;
 
@@ -53,6 +58,7 @@ int main(int argc, char **argv){
     }
 
     create_searchers(NUMSEARCHERS);
+    array_balances = (int**)malloc(atoi(argv[1])*sizeof(int*));
     create_clients(atoi(argv[1]));
     std::cout << "MAIN PROGRAM FINISHED" << std::endl;
     return EXIT_SUCCESS;
@@ -60,6 +66,7 @@ int main(int argc, char **argv){
 
 void signal_handler(int sig_num){
     std::cout << "Exiting program successfully..." << std::endl;
+    free(array_balances);
     exit(EXIT_SUCCESS);
 }
 
@@ -138,4 +145,12 @@ void create_clients(int n_clients){
         if(i % 6 == 0) std::this_thread::sleep_for (std::chrono::milliseconds(500));
     }
     std::for_each(vec_threads_clients.begin(),vec_threads_clients.end(),std::mem_fn(&std::thread::join));
+}
+
+void create_payment_service(){
+
+    payment_service ps;
+    std::thread t(ps);
+    t.detach();
+
 }

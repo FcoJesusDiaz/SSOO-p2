@@ -16,7 +16,10 @@ extern std::mutex sem_normal;
 extern std::atomic<int> occupied_threads;
 extern std::mutex notifications;
 
+extern int *array_balances;
+
 std::string Client::make_search(){
+    array_balances[id]=balance;
     std::promise<std::string> prom;
     std::future<std::string> fut;
     fut = prom.get_future();
