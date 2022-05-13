@@ -38,12 +38,12 @@ extern std::atomic<int> occupied_threads;
 void Searcher::operator()(){
     int num_threads = files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
     int random_num;
-
+    
     while(1){
+        Request *req;
         std::unique_lock<std::mutex>queue_size(sem);
         std::vector<std::thread> v_hilos;
         std::vector<thread_searcher> v_objetos;
-        Request *req;
 
         condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
         occupied_threads = occupied_threads - 1;
@@ -83,12 +83,15 @@ void Searcher::operator()(){
             sem_normal.unlock();
         }
 
+        std::cout << BOLDBLUE << "[Searcher " << id << "]: Element retreived: " << req->to_string() << RESET << std::endl;
 
         queue_size.unlock();
-        
+        std::mutex balance_sync;
+
         for (long unsigned i = 0; i < files.size(); i++)
         {
-            thread_searcher s{(int)(i+1),files[i],req->getWord(), colours[i % 4]};
+            thread_searcher s{(int)(i+1),files[i],req->getWord(), colours[i % 4], std::ref(req->get_balance()),
+             req->getType(), req->getClientID(), std::ref(balance_sync)};
             v_objetos.push_back(s);
         }
 
@@ -98,16 +101,15 @@ void Searcher::operator()(){
 
         //wait until all threads are finished
         std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
-        
-        std::cout << BOLDBLUE << "[Searcher " << id << "]: Element retreived: " << req->to_string() << RESET << std::endl;
-        std::string results = "";
+    
+        std::string results = "[Client id " + std::to_string(req->getClientID()) + "] with type " + std::to_string(req->getType()) + "\n";
         results = results + " Results for: " + BOLDYELLOW + req->getWord() + RESET + "\n";
         for(long unsigned int i = 0; i < v_objetos.size(); i++){
             results += v_objetos[i].to_string();
         }
 
         req->set_promise_value(results);
-    
+        
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
         occupied_threads = occupied_threads + 1;
         std::cout << BOLDGREEN << "[SEARCHER " << id << "]: "<<"Finished request, free searchers: " << occupied_threads << RESET << std::endl;

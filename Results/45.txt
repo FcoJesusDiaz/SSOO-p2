@@ -1,93 +1,0 @@
- Results for: [1m[33moros[0m
-[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 7641 :: ... los Toros de[0m
-[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 7674 :: ... los Toros, la[0m
-[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 7891 :: ... los Toros. [0m
-[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 7898 :: ... los Toros, hizo[0m
-[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 8559 :: ... es doloroso. Nadie[0m
-[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 16315 :: ... colocado amorosamente en[0m
-[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 24053 :: ... brutalmente doloroso viaje[0m
-[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 24394 :: ... y amoroso. [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 5335 :: ... noche fragorosa jamás[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 5789 :: ... pero ardorosos, encendidos[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 5851 :: ... memoria dolorosa. [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 6102 :: ... desconfiada, rencorosa, la[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 6792 :: ... el doloroso proceso[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7013 :: ... voz temblorosa, el[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7350 :: ... y temblorosa, con[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7461 :: ... los tesoros ocultos[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7496 :: ... descubrir tesoros y[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7822 :: ... masa vaporosa cuyo[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 8048 :: ... cual vaporosa vela,[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 8700 :: ... aguas vaporosas y[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 9249 :: ... relación amorosa también[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 9491 :: ...  vigorosas eran[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 9876 :: ... el uroboros, el[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10561 :: ...  doloroso e[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10567 :: ... soledad dolorosa de[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10585 :: ... más esplendorosa de[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10665 :: ... labios temblorosos y[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10708 :: ... dedo tembloroso, terrible,[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10763 :: ... planta dolorosa. [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 10949 :: ... vínculo doloroso con[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 11082 :: ... su esplendoroso fulgor[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 11147 :: ... más clamoroso de[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 11276 :: ...  dolorosos para[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 11459 :: ... sus pavorosos celos,[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 12227 :: ... los toros, de[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 12967 :: ... lánguido amoroso [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 13315 :: ... su pavoroso espectáculo,[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 13927 :: ... lentamente, dolorosamente, con[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 14612 :: ... labios temblorosos. [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 14698 :: ... dedo tembloroso. [0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 14717 :: ... ademán rencoroso—. ¿Qué[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 14726 :: ... desengaño amoroso, cometí[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 14766 :: ... aureola vaporosa que[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 15400 :: ... los coros de[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 16472 :: ...  tembloroso y[0m
-[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 16492 :: ... manos temblorosas. [0m
-[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 659 :: ... voz temblorosa: «No[0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 435 :: ... las dolorosas [0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1608 :: ...  amorosos y[0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 3034 :: ... y dolorosos. Las[0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 3861 :: ... y amoroso que[0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 4452 :: ... los semáforos, y[0m
-[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 5066 :: ...  tesoros. [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 664 :: ... placer doloroso mientras[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1347 :: ...  doloroso, lo[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1536 :: ... paisaje horroroso, incluso[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1569 :: ... estos tesoros —inquirió[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1864 :: ... fue dolorosa y[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 2896 :: ... y doloroso. [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 3073 :: ... y doloroso en[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 3306 :: ... antes, doloroso, sus[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 4866 :: ... y tembloroso. Aedan[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 5574 :: ...  rencorosos, delgados[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 5600 :: ... voz temblorosa uno[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 6624 :: ...  candorosos querubines[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 8259 :: ...  dolorosamente bello[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 8882 :: ... camisa vaporosa, o[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 8910 :: ... tapices, tesoros. Su[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 9132 :: ... placer doloroso. El[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 9947 :: ... voz temblorosa. [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 10078 :: ... y doloroso, [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 10082 :: ... de tesoros que[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 10244 :: ... de tesoros, sostenía[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11161 :: ... besó fervorosa (calor,[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 12165 :: ... pasos sonoros y[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 13670 :: ...  —Tesoros. [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 13682 :: ... los tesoros? [0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 13918 :: ... y doloroso; una[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 14599 :: ... pinos temblorosos. Inhalaría[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 14818 :: ... los fervorosos rostros[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 15314 :: ... y dolorosa con[0m
-[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 15447 :: ... y vigorosa gracia,[0m
-[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 231 :: ... estrechó vigorosamente. “El[0m
-[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3617 :: ... y dolorosa, pero[0m
-[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 4702 :: ... era doloroso. [0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 123 :: ... era esplendoroso, Paul[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 296 :: ... actitud amorosa se[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2070 :: ... y dolorosa. La[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 4005 :: ... discípulo amoroso, decidió[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 4367 :: ... son dolorosas. No[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 4842 :: ... tan dolorosa que[0m
-[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 5040 :: ... experiencia dolorosa y[0m

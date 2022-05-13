@@ -17,8 +17,12 @@ int Request::getClientID(){
     return client_id;
 }
 
-int Request::getType(){
+client_type Request::getType(){
     return type;
+}
+
+int & Request::get_balance(){
+    return balance;
 }
 
 std::string Request::to_string(){

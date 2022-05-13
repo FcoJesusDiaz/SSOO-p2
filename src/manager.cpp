@@ -17,7 +17,7 @@
 #include "searcher.h"
 
 
-#define NUMSEARCHERS 10
+#define NUMSEARCHERS 2
 #define MAX_BALANCE 20
 
 
@@ -135,7 +135,7 @@ void create_clients(int n_clients){
         type = (client_type)(std::rand() % 3);
         Client c{i+1, type , (type == unlimited_prem) ? -1 : (std::rand() % MAX_BALANCE)};
         vec_threads_clients.push_back(std::thread(c));
-        if(i % 6) std::this_thread::sleep_for (std::chrono::milliseconds(500));
+        if(i % 6 == 0) std::this_thread::sleep_for (std::chrono::milliseconds(500));
     }
     std::for_each(vec_threads_clients.begin(),vec_threads_clients.end(),std::mem_fn(&std::thread::join));
 }

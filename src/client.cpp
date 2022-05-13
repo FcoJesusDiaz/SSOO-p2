@@ -21,34 +21,29 @@ std::string Client::make_search(){
     std::future<std::string> fut;
     fut = prom.get_future();
     std::cout << "Client id "<< id << ": Referencia a prom" << &prom <<std::endl;
-    
-    notifications.lock();
+    Request req{std::ref(balance), id, type, choose_word(), std::ref(prom)};
+
     if(type == free_acc) {
         std::cout << BOLDRED << "Client id "<< id << ": pushing to normal queue" << RESET << std::endl;
         sem_normal.lock();
-        normal_requests.push(Request {balance, id, type, choose_word(), std::ref(prom)});
+        normal_requests.push(req);
         sem_normal.unlock();
-        std::cout << BOLDRED << "Client id "<< id << ": pushed to normal queue" << RESET << std::endl;
     }
     else {
         std::cout << BOLDRED << "Client id "<< id << ": pushing to premium queue" << RESET << std::endl;
         sem_premium.lock();
-        premium_requests.push(Request {balance, id, type, choose_word(), std::ref(prom)});
+        premium_requests.push(req);
         sem_premium.unlock();
-        std::cout << BOLDRED << "Client id "<< id << ": pushed to premium queue" << RESET << std::endl;
     }
 
+    notifications.lock();
     while(occupied_threads == 0){
         //std::cout << BOLDGREEN << "Client id "<< id << ": All searchers are currently occupied" << RESET << std::endl;
     }
     
     std::cout << BOLDGREEN << "Client id "<< id << ": Petition notified" << RESET << std::endl;
-    std::this_thread::sleep_for (std::chrono::milliseconds(100));
     condition.notify_one();
     notifications.unlock();
-
-    if(fut.valid()) std::cout << BOLDBLUE << "Client id "<< id << ": Future valido" << RESET << std::endl;
-    else std::cout << BOLDRED << "Client id "<< id << ": FUTURE NO VALIDO" << RESET << std::endl;
     
     std::string result = fut.get();
 

@@ -8,6 +8,7 @@
 #include "colors.h"
 
 #include "thread_searcher.h"
+#include "client.h"
 
 /*Variable from SSOOIIGLE*/
 extern std::vector<int> numLines;
@@ -26,11 +27,11 @@ void thread_searcher::searching(){
         return;
     }
     mFile.seekg(0);
-    while(mFile.peek() != EOF )
+    while(mFile.peek() != EOF)
     {
         getline(mFile, line);
         lines++;
-        findWord(line,lines);
+        if(!findWord(line,lines)) break;
     }
     mFile.close();
 }   
@@ -40,7 +41,7 @@ positions will have the words that form that line. once the array is created; We
 each word we will call the checkword method that will tell us if that word has the substring we are looking 
 for. In the true case, we will create a Result structure with the necessary data and include it in the 
 thread's private result vector. */
-void thread_searcher::findWord(std::string line, int numLine){
+bool thread_searcher::findWord(std::string line, int numLine){
     std::transform(word.begin(), word.end(), word.begin(), ::tolower);
     std::vector<std::string> tokens;
     std::stringstream check1(line);
@@ -58,6 +59,13 @@ void thread_searcher::findWord(std::string line, int numLine){
 
         if (found)
         {
+            balance_sync.lock();
+            decrease_balance();
+            if(balance == 0) {
+                balance_sync.unlock();
+                return false;
+            }
+            balance_sync.unlock();
             Result coincidencia;
             coincidencia.id = id;
             coincidencia.line = numLine;
@@ -67,6 +75,8 @@ void thread_searcher::findWord(std::string line, int numLine){
             results.push_back(coincidencia);
         }
     }
+    return true;
+
 }
 
 //method to check if the substring we want is contained in a higher string
@@ -82,37 +92,24 @@ bool thread_searcher::checkWord(std::string checked){
     return false;
 }
 
+void thread_searcher::decrease_balance(){
+    if(balance == 0 && type == free_acc) {
+        std::cout << "[THREAD " << id <<"]: no balance left on normal client" << std::endl;
+    }
+    else if(balance == 0 && type == limited_prem) {
+        std::cout << "[THREAD " << id <<"]: no balance left on limited premium client. Waiting balance update...UPDATED" << std::endl;
+        balance = 10;
+        //while(balance == 0);
+    }
+    else{ 
+        balance--;
+        std::cout << "[THREAD " << id <<"]: decreasing balance... Balance =" << balance << std::endl;
+    }
+}
+
 void thread_searcher :: operator()(){
-   try{
-        searching();
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << "Exception caught : " << e.what() << std::endl;
-    }
- 
+    searching();
 }
-
-/*decrease_balance(){
-//SECCIÓN CRÍTICA
-if(saldo == 0 && type == free_acc) exit
-if(saldo == 0 && type == limited_premium) {
-    jsdgfakgdsa;
-    mutex.unlock()
-    while(saldo == 0);
-}
-else saldo--;
-//SECCIÓN CRÍTICA
-
-
-///BUSQUEDA DE PAGO
-
-while(1){
-    mutex.lock();
-
-}
-    
-}*/
 
 std::string thread_searcher::to_string(){
     std::string result;

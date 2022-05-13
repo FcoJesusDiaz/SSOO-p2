@@ -12,6 +12,8 @@
 #ifndef THREAD_SEARCHER_H
 #define TRHEAD_SEARCHER_H
 
+#include "client.h"
+
 //structure that we will use for the results
 struct Result{
     std::string previous;
@@ -29,16 +31,22 @@ class thread_searcher{
         std::string filename; //archivo en el que se buscará la palabra
         std::string word; //palabra que se debe buscar
         std::string colour;
+        int &balance;
+        client_type type;
+        int client_id;
         std::vector<Result> results;
+        std::mutex &balance_sync;
     public:
-        thread_searcher(int id, std::string filename, std::string word, std::string colour): id(id), 
-        filename(filename),word(word),colour(colour){};
+        thread_searcher(int id, std::string filename, std::string word, std::string colour, int & balance,
+        client_type type, int client_id, std::mutex &balance_sync): id(id), filename(filename),word(word),colour(colour), 
+        balance(balance), type(type), client_id(client_id), balance_sync(balance_sync){};
 
         void searching();
-        void findWord(std::string line, int numLine);
+        bool findWord(std::string line, int numLine);
         bool checkWord(std::string checked);
         void storeResults();
         void operator()();
         std::string to_string();
+        void decrease_balance();
 };
 #endif
