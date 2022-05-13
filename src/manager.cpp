@@ -19,7 +19,7 @@
 #include "payment_service.h"
 
 
-#define NUMSEARCHERS 6
+#define NUMSEARCHERS 4
 #define MAX_BALANCE 20
 #define MAX_CLIENTS 50
 #define MAX_WORDS 100

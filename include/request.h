@@ -24,7 +24,6 @@ class Request{
         int getClientID();
         client_type getType();
         int &get_balance();
-        int decrease_balance();
         std::string getWord();
         std::string to_string();
 
