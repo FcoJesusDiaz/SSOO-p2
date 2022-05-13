@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <condition_variable>
 #include <dirent.h>
+#include <atomic>
 
 #include "colors.h"
 #include "client.h"
@@ -16,7 +17,7 @@
 #include "searcher.h"
 
 
-#define NUMSEARCHERS 1
+#define NUMSEARCHERS 4
 #define MAX_BALANCE 20
 
 
@@ -26,7 +27,11 @@ std::queue<Request> premium_requests;
 std::queue<Request> normal_requests;
 std::condition_variable condition;
 std::mutex sem;
-std::unique_lock<std::mutex>queue_size(sem);
+//std::unique_lock<std::mutex>queue_size(sem);
+std::mutex sem_premium;
+std::mutex sem_normal;
+std::atomic<int> occupied_threads(NUMSEARCHERS);
+std::mutex notifications;
 
 std::vector<std::string> files;
 
@@ -36,14 +41,27 @@ bool is_integer(char *str);
 void create_dictionary(char *filename);
 void create_clients(int n_clients);
 void get_filenames();
+void signal_handler(int sig_num);
 
 
 int main(int argc, char **argv){
     check_arguments(argc, argv);
     create_dictionary(argv[2]);
+    
+    if(signal(SIGINT, signal_handler) == SIG_ERR){
+        std::cerr << "Could not create signal handler" << std::endl;
+    }
+
     create_searchers(NUMSEARCHERS);
     create_clients(atoi(argv[1]));
+    std::this_thread::sleep_for (std::chrono::milliseconds(100));
+    std::cout << "MAIN PROGRAM FINISHED" << std::endl;
     return EXIT_SUCCESS;
+}
+
+void signal_handler(int sig_num){
+    std::cout << "Exiting program successfully..." << std::endl;
+    exit(EXIT_SUCCESS);
 }
 
 void check_arguments(int argc, char **argv){
@@ -109,7 +127,7 @@ void get_filenames(){
 }
 
 void create_clients(int n_clients){
-    std::vector<std::thread>vec_threads;
+    std::vector<std::thread>vec_threads_clients;
     client_type type;
 
     std::srand(time(NULL)); 
@@ -117,8 +135,8 @@ void create_clients(int n_clients){
         std::cout << "[MANAGER]: " << "creating client " << i+1 << std::endl;
         type = (client_type)(std::rand() % 3);
         Client c{i+1, type , (type == unlimited_prem) ? -1 : (std::rand() % MAX_BALANCE)};
-        vec_threads.push_back(std::thread(std::ref(c)));
-        std::this_thread::sleep_for (std::chrono::milliseconds(50));
+        vec_threads_clients.push_back(std::thread(c));
+        if(i % 6==0) std::this_thread::sleep_for (std::chrono::milliseconds(500));
     }
-    std::for_each(vec_threads.begin(),vec_threads.end(),std::mem_fn(&std::thread::join));
+    std::for_each(vec_threads_clients.begin(),vec_threads_clients.end(),std::mem_fn(&std::thread::join));
 }
