@@ -20,6 +20,7 @@ class Client{
         void operator()();
         std::string choose_word();
         void log_result(std::string result);
+        void to_string();
 };
 
 #endif

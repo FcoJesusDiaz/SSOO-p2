@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <condition_variable>
 #include <atomic>
+#include <memory>
 
 #include "request.h"
 #include "colors.h"
@@ -39,54 +40,51 @@ void Searcher::operator()(){
     int num_threads = files.size(); //al ser un hilo por libro; se crean tantos hilos como libros
     int random_num;
     
+    Request *req;
     while(1){
-        Request *req;
         std::unique_lock<std::mutex>queue_size(sem);
         std::vector<std::thread> v_hilos;
         std::vector<thread_searcher> v_objetos;
 
         condition.wait(queue_size, [&]{return !premium_requests.empty() || !normal_requests.empty();});
         occupied_threads = occupied_threads - 1;
-        std::cout << "[Searcher " << id << "]: Exiting condition..." << std::endl;
-        std::cout << BOLDGREEN << "[SEARCHER " << id << "]: "<<"Free searchers: " << occupied_threads << RESET << std::endl;
         random_num = (rand() % 10) + 1;
 
         if(premium_requests.empty() && !normal_requests.empty()){
             sem_normal.lock();
-            std::cout << "[Searcher " << id << "]: Retrieving request for normal requests queue" << std::endl;
-            req = &normal_requests.front();
+            req = new Request(std::ref(normal_requests.front()));
             normal_requests.pop();
             sem_normal.unlock();
         }
 
         else if(!premium_requests.empty() && normal_requests.empty()){
             sem_premium.lock();
-            std::cout << "[Searcher " << id << "]: Retrieving request for premium requests queue" << std::endl;
-            req = &premium_requests.front();
+            req = new Request(std::ref(premium_requests.front()));
             premium_requests.pop();
             sem_premium.unlock();
         }
 
         else if(!premium_requests.empty() && !normal_requests.empty() && random_num >= 1 && random_num <= 8){
             sem_premium.lock();
-            std::cout << "[Searcher " << id << "]: Retrieving request for premium requests queue" << std::endl;
-            req = &premium_requests.front();
+            req = new Request(std::ref(premium_requests.front()));
             premium_requests.pop();
             sem_premium.unlock();
         }
         
         else{
             sem_normal.lock();
-            std::cout << "[Searcher " << id << "]: Retrieving request for normal requests queue" << std::endl;
-            req = &normal_requests.front();
+            std::cout << "[SEARCHER " << id << "]: Retrieving request for normal requests queue" << std::endl;
+            req = new Request(std::ref(normal_requests.front()));
             normal_requests.pop();
             sem_normal.unlock();
         }
 
-        std::cout << BOLDBLUE << "[Searcher " << id << "]: Element retreived: " << req->to_string() << RESET << std::endl;
+        std::cout << BOLDBLUE << "[SEARCHER " << id << "]: Element retreived from queue: " << req->to_string() << RESET << std::endl;
 
         queue_size.unlock();
         std::mutex balance_sync;
+
+        unsigned t0 = clock();
 
         for (long unsigned i = 0; i < files.size(); i++)
         {
@@ -101,18 +99,26 @@ void Searcher::operator()(){
 
         //wait until all threads are finished
         std::for_each(v_hilos.begin(),v_hilos.end(),std::mem_fn(&std::thread::join));
+
+        unsigned t1 = clock();
+
+        double time = (double(t1-t0) / CLOCKS_PER_SEC);
+        int client_id = req->getClientID();
+        client_type type = req->getType();
+        std::string word = req->getWord();
     
-        std::string results = "[Client id " + std::to_string(req->getClientID()) + "] with type " + std::to_string(req->getType()) + "\n";
-        results = results + " Results for: " + BOLDYELLOW + req->getWord() + RESET + "\n";
+        std::string results = "[Client id " + std::to_string(client_id) + "] with type " + std::to_string(type) + ". 0(Free account), 1(Limited premium), 2(Unlimited_premium)\n";
+        results = results + "Time of execution in seconds: " + std::to_string(time) + " \nResults for: " + BOLDYELLOW + word + RESET + "\n";
         for(long unsigned int i = 0; i < v_objetos.size(); i++){
             results += v_objetos[i].to_string();
         }
 
         req->set_promise_value(results);
         
-        std::this_thread::sleep_for (std::chrono::milliseconds(50));
         occupied_threads = occupied_threads + 1;
-        std::cout << BOLDGREEN << "[SEARCHER " << id << "]: "<<"Finished request, free searchers: " << occupied_threads << RESET << std::endl;
+        std::cout << BOLDBLUE << "[SEARCHER " << id << "]: " << "Finished request of client " << 
+        std::to_string(client_id) << ". Free searchers: " << occupied_threads << RESET << std::endl;
+        req = NULL;
     }
 }
 

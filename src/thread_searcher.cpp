@@ -22,7 +22,6 @@ extern std::mutex client_sem;
 /* method used to read the file from the byte indicated in the variable "begin". In addition, in each read line 
 we will call the "findword" method to check if the searched word is in this line */
 void thread_searcher::searching(){
-    //std::cout << "[THREAD " << id <<"]: hola, mi fichero es:" << filename << std::endl;
     std::string line;
     int lines;
     std::ifstream mFile(filename);
@@ -65,7 +64,7 @@ bool thread_searcher::findWord(std::string line, int numLine){
         {
             balance_sync.lock();
             decrease_balance();
-            if(balance == 0) {
+            if(balance == 0 && type == free_acc) {
                 balance_sync.unlock();
                 return false;
             }
@@ -85,7 +84,6 @@ bool thread_searcher::findWord(std::string line, int numLine){
 
 //method to check if the substring we want is contained in a higher string
 bool thread_searcher::checkWord(std::string checked){
-
     /* we convert from string to const char to be able to use the strstr function and check if a substring 
     is contained in a larger string*/
     const char *w = word.c_str();
@@ -97,19 +95,15 @@ bool thread_searcher::checkWord(std::string checked){
 }
 
 void thread_searcher::decrease_balance(){
-    if(balance == 0 && type == free_acc) {
-        std::cout << "[THREAD " << id <<"]: no balance left on normal client" << std::endl;
-    }
+    if(balance == 0 && type == free_acc) return;
+    
     else if(balance == 0 && type == limited_prem) {
-        std::cout << "[THREAD " << id <<"]: no balance left on limited premium client. Waiting balance update...UPDATED" << std::endl;
         client_sem.lock();
         id_send = client_id;
         payment_sem.unlock();
+        while(balance == 0){};
     }
-    else{ 
-        balance--;
-        std::cout << "[THREAD " << id <<"]: decreasing balance... Balance =" << balance << std::endl;
-    }
+    balance--;
 }
 
 void thread_searcher :: operator()(){
@@ -118,7 +112,6 @@ void thread_searcher :: operator()(){
 
 std::string thread_searcher::to_string(){
     std::string result;
-    //std::cout << "file: " << filename << " resultados: "<< results.size()<< std::endl;
     
     for (unsigned i = 0; i < results.size(); i++)
     {

@@ -2,6 +2,7 @@
 #define REQUEST
 
 #include <future>
+#include <iostream>
 
 #include "client.h"
 
