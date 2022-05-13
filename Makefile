@@ -2,30 +2,35 @@ DIROBJ := obj/
 DIREXE := exec/
 DIRHEA := include/
 DIRSRC := src/
+DIRRESULTS := Results/
 
 CFLAGS := -I$(DIRHEA) -c -Wall -std=c++11
 LDLIBS := -lpthread -lrt
 CC := g++
 
-all : dirs SSOOIIGLE
+all : dirs manager
 
 dirs:
-	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG)
+	mkdir -p $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRRESULTS)
 
-SSOOIIGLE: $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o
-	$(CC) -o $(DIREXE)$@ $(DIROBJ)SSOOIIGLE.o $(DIROBJ)Searcher.o $(LDLIBS)
+rm_results:
+	rm -f $(DIRRESULTS)*
+
+manager:  $(DIROBJ)manager.o $(DIROBJ)client.o $(DIROBJ)thread_searcher.o $(DIROBJ)request.o $(DIROBJ)searcher.o $(DIROBJ)payment_service.o
+	$(CC) -o $(DIREXE)$@ $(DIROBJ)manager.o $(DIROBJ)searcher.o $(DIROBJ)client.o $(DIROBJ)request.o $(DIROBJ)thread_searcher.o $(DIROBJ)payment_service.o $(LDLIBS)
 
 $(DIROBJ)%.o: $(DIRSRC)%.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
-test1:
-	./$(DIREXE)SSOOIIGLE Libros/prueba.txt David 3
+test_1: rm_results
+	./$(DIREXE)manager 4 Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt
 
-test2:
-	./$(DIREXE)SSOOIIGLE Libros/VIVE-TU-SUEÑO.txt sueña 10
+test_2: rm_results
+	./$(DIREXE)manager 10 Libros/ACTITUD-DE-VENDEDOR.txt
 
-test3:
-	./$(DIREXE)SSOOIIGLE Libros/ACTITUD-DE-VENDEDOR.txt vender 8
+test_3: rm_results
+	./$(DIREXE)manager 50 Libros/La-última-sirena.txt
 
-clean : 
+
+clean : rm_results
 	rm -rf *~ core $(DIROBJ) $(DIREXE) $(DIRDEBUG) $(DIRHEA)*~ $(DIRSRC)*~
