@@ -9,6 +9,7 @@ extern enum client_type type;
 
 
 void Request::set_promise_value(std::string value){
+    //std::cout << "[REQ_Client" << client_id << "]: Referencia a prom en set_promise value " << &prom << std::endl;
     prom.set_value(value);
 }
 

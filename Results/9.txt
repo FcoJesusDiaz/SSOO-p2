@@ -1,0 +1,71 @@
+ Results for: [1m[33mDAVID[0m
+[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 6218 :: ... alcanzar. David Robinson,[0m
+[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 6636 :: ... todos. David Ogilvy[0m
+[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 7176 :: ... y David Scott[0m
+[1m[36m[Hilo 1 Libro: Libros/17-LEYES-DEL-TRABJO-EN-EQUIPO.txt] línea 8157 :: ... henry David Thoreau[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 16912 :: ... henry David Thoreau[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 18389 :: ... with David Letterman[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 22129 :: ... dramaturgo David Mamet[0m
+[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 15739 :: ... conversión. David escribió[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 398 :: ...  «David, supe[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 516 :: ... —henry DAVID THOREAU[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 1659 :: ...  —David Augsburger[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 1666 :: ... fuller, David [0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 2034 :: ... contestar. David Burns,[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 3131 :: ... amigo David Jeremiah[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 3135 :: ...  —David Jeremiah[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1961 :: ... de David y[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1968 :: ... llamado David [0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1971 :: ... burlas. David se[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1973 :: ... dijo David a[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1974 :: ... a David: No[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1976 :: ... juventud. David respondió[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 1984 :: ...  David recordó[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 2033 :: ... novelista David Ambrose[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 2297 :: ... otros. David Schwartz[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 2465 :: ... por David Grimes.[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 2844 :: ... comunicarse. David Burns,[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 1 :: ... me David me[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 6 :: ... bien david [0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 9 :: ... decia david me[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 9 :: ... o David, o[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 9 :: ... vez DAVID. [0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 10 :: ... igual DaviD, que[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 10 :: ...  DaViD?? [0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 12 :: ... vid david DAvid[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 12 :: ... david DAvid Davi[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 2824 :: ... harley Davidson a[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3054 :: ... iss”. David no[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3194 :: ... y David Horowitz,[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3444 :: ... de David, del[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3445 :: ... de David y[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3450 :: ... experimentados. David, un[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3454 :: ... historia. David creció,[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3456 :: ... de David”. Por[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 3808 :: ... historiador David M.[0m
+[1m[35m[Hilo 8 Libro: Libros/21-LEYES-DEL-LIDERAZGO.txt] línea 5241 :: ... con David Mohan[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 190 :: ... temor». David estaba[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 192 :: ... de David, aun[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 194 :: ... de David [0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 201 :: ... ahora, David alaba[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 206 :: ... nombre». David demuestra[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 208 :: ...  David: «Jehová[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 304 :: ... de David y[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 307 :: ... a David al[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 308 :: ... esté David conmigo[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 309 :: ... saúl, David [0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 828 :: ... negocios. David Sarnoff[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 856 :: ... matarlo. David miró[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2682 :: ... y David, el[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2745 :: ... de David pidiendo[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2746 :: ... 32, David deja[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2750 :: ... natán, David oró[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 2758 :: ... otra. David clama[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3631 :: ... de David y[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3633 :: ... de David. ¿Por[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3642 :: ... de David había[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3816 :: ...  David, en[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3818 :: ... de David [0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 3825 :: ... que David, usted[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 4381 :: ... de David se[0m
+[1m[36m[Hilo 9 Libro: Libros/ACTITUD-DE-VENDEDOR.txt] línea 4602 :: ... rey David. Describa[0m

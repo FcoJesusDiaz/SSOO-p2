@@ -1,0 +1,18 @@
+ Results for: [1m[33msueña[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 362 :: ... que sueñan y[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 428 :: ... niños sueñan, todos[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 2303 :: ... audaz, ¡sueña en[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 2361 :: ... niño sueña con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 3033 :: ...  sueña con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 3034 :: ... que sueña con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 3036 :: ... que sueña con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 3357 :: ... demás sueñan despiertos.[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 3951 :: ... y sueñan en[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 4596 :: ... escritor sueña con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 7741 :: ... personas sueñan con[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 8590 :: ... grandeza. Sueña en[0m
+[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 3453 :: ... alma sueña con[0m
+[1m[35m[Hilo 4 Libro: Libros/25-MANERAS-DE-GANARSE-A-LA-GENTE.txt] línea 3045 :: ... donde sueña, escribe[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 4490 :: ...  Sueña: [0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 4498 :: ...  Sueña: [0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 4506 :: ...  Sueña: [0m

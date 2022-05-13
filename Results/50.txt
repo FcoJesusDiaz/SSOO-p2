@@ -1,0 +1,21 @@
+ Results for: [1m[33mhola[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 4091 :: ...  Nicholas Negroponte.[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 4103 :: ... de Nicholas Negroponte.[0m
+[1m[32m[Hilo 2 Libro: Libros/VIVE-TU-SUEÑO.txt] línea 5076 :: ... y Nicholas Negroponte,[0m
+[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7754 :: ... y Holanda no[0m
+[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 7754 :: ... en Holanda los[0m
+[1m[33m[Hilo 3 Libro: Libros/El-oro-y-la-ceniza.txt] línea 8719 :: ... autobuses holandeses ni[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 3996 :: ...  —Hola, mi[0m
+[1m[36m[Hilo 5 Libro: Libros/SEAMOS-PERSONAS-DE-INFLUENCIA.txt] línea 4002 :: ...  —Hola—dije—, este[0m
+[1m[32m[Hilo 6 Libro: Libros/prueba.txt] línea 1 :: ...  Hola me[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 865 :: ...  —Hola —dijo[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1144 :: ...  —Hola —dijo[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 1169 :: ...  —Hola —respondió[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 8777 :: ...  —Hola —dijo[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11558 :: ...  —Hola —saludó[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11562 :: ...  —Hola, Jessica.[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11691 :: ...  —Hola, habla[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11699 :: ...  —¿Hola? [0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11703 :: ...  —¿Hola? ¿Puede[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 11884 :: ...  —Hola, Ruri.[0m
+[1m[33m[Hilo 7 Libro: Libros/La-última-sirena.txt] línea 13408 :: ...  —Hola —dijo[0m
