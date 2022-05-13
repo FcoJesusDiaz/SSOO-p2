@@ -16,7 +16,6 @@ class Client{
     public:
         Client(int id, client_type type, int balance): id(id), type(type), balance(balance){};
         std::string make_search();
-        void set_balance(int new_balance);
         void operator()();
         std::string choose_word();
         void log_result(std::string result);

@@ -7,8 +7,6 @@
 #include "client.h"
 #include "colors.h"
 
-#define MAX_CLIENTS 50
-
 extern int id_send;
 extern std::mutex payment_sem;
 extern std::mutex client_sem;
