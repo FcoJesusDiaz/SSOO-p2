@@ -17,6 +17,7 @@
 #include <dirent.h>
 #include <atomic>
 #include <tuple>
+#include <array>
 
 #include "colors.h"
 #include "client.h"
@@ -42,6 +43,7 @@ std::vector<std::tuple<int, int&>> balance_vec;
 std::mutex sem_premium;
 std::mutex sem_normal;
 std::mutex sem_vec_tup;
+int *balances[MAX_CLIENTS];
 std::atomic<int> occupied_threads(NUMSEARCHERS);
 std::mutex notifications;
 int id_send;

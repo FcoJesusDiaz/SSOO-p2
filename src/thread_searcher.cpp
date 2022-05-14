@@ -108,7 +108,6 @@ void thread_searcher::decrease_balance(){
         id_send = client_id;
         payment_sem.unlock();
         while(balance == 0){};
-        //client_sem.unlock();
     }
     balance--;
 }
