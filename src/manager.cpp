@@ -41,6 +41,7 @@ std::vector<std::tuple<int, int&>> balance_vec;
 
 std::mutex sem_premium;
 std::mutex sem_normal;
+std::mutex sem_vec_tup;
 std::atomic<int> occupied_threads(NUMSEARCHERS);
 std::mutex notifications;
 int id_send;

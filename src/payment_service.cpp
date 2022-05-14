@@ -22,9 +22,9 @@ void payment_service::update_balance(){
     for (std::tuple<int, int&>tuple_id_balance : balance_vec){
         if(std::get<0>(tuple_id_balance) == id_send){
             std::get<1>(tuple_id_balance) += 50;
+            break;
         }
     }
-    //std::cout << "[PAYMENT] New salary of client " << id_send <<": " <<  << std::endl;
     std::cout << BOLDGREEN << "[PAYMENT] Salary updated of client "<< id_send << RESET << std::endl;
 }
 

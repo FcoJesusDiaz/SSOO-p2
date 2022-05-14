@@ -26,10 +26,13 @@ extern std::mutex sem_normal;
 extern std::atomic<int> occupied_threads;
 extern std::mutex notifications;
 extern std::vector<std::tuple<int, int&>> balance_vec;
+extern std::mutex sem_vec_tup;
 
 std::string Client::make_search(){
+    sem_vec_tup.lock();
     std::tuple<int, int&> t = std::make_tuple(id, std::ref(balance));
     balance_vec.push_back(t);
+    sem_vec_tup.unlock();
     std::promise<std::string> prom;
     std::future<std::string> fut;
     fut = prom.get_future();
